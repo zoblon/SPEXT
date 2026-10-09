@@ -1,0 +1,180 @@
+{
+  "status": "Paused; unapproved drafts; no production integration",
+  "controlling_wordmark": "spext-logo-v2.png",
+  "next_prompt": "next-logo-edit-prompt.txt",
+  "next_prompt_executed": false,
+  "latest_direction": "Flat neon-green bolt with very narrow dark-green contour; draft-2 purple lettering unchanged",
+  "app_icon_centering": "Unresolved; see app-icon-centering-qc-v2.md",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 497,
+      "sha256": "a9c6284b8c2235472cbb589308d92a478e3d99a750ed91df184c7e780e2871ef"
+    },
+    {
+      "file": "app-icon-centering-qc-v2.md",
+      "bytes": 1552,
+      "sha256": "b0984cef5781b1e8925ac1aa8e2799b24a4da0d5c779a14a0c8193577524a93e"
+    },
+    {
+      "file": "app-icon-prompt-v1.txt",
+      "bytes": 1591,
+      "sha256": "74c3add013c8b91770b6922d9ee3aef2c9d7968dec930d8fa411082547f6dc87"
+    },
+    {
+      "file": "app-icon-prompt-v2.txt",
+      "bytes": 2444,
+      "sha256": "7b20fe6f3407e6ae5c6d783d22cb7cef63361f8cc5567ae9855ec5d4b751180f"
+    },
+    {
+      "file": "app-icon-source-note-v1.md",
+      "bytes": 751,
+      "sha256": "cbd6a474b475219e0057eb95fd9cdae16080e483e61b4631a812a4094a3aaa83"
+    },
+    {
+      "file": "export-review-v2.py",
+      "bytes": 4639,
+      "sha256": "c0d72556526497ac9f510da21546ce10987ad9471c477c80b45665d705ed8b6f"
+    },
+    {
+      "file": "logo-prompt-v1.txt",
+      "bytes": 1336,
+      "sha256": "8d14eeae88a6596a9b02580a201947b92898df0e1cc60c2dcb2964e1c3f3ca38"
+    },
+    {
+      "file": "logo-prompt-v2.txt",
+      "bytes": 1679,
+      "sha256": "67815099284966cc6560344d3883aeefeccc4f68a85ddf7e19fbddc0171e97dd"
+    },
+    {
+      "file": "menubar-prompt-v1.txt",
+      "bytes": 1072,
+      "sha256": "7887d13bbf75b5074f29f42d7d0d12270311762cc9a68979dd9ccc4e1aca2603"
+    },
+    {
+      "file": "next-logo-edit-prompt.txt",
+      "bytes": 1264,
+      "sha256": "5e1a30f0fcc8ba7d2ec7af27e19396fb07d5d6f3f53f37825f5bc749e667745c"
+    },
+    {
+      "file": "spext-app-icon-source-v1.png",
+      "bytes": 1019252,
+      "sha256": "a32a0218887ae50e7a8c203b3b97a6018c19c1d553c0f794839f41a0a15e3aad",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-app-icon-source-v2.png",
+      "bytes": 1012024,
+      "sha256": "be17f3dbc08e40ff38136671d35dd868483a94367a6a68a7b69e14c201493eab",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-app-icon-v1.png",
+      "bytes": 552867,
+      "sha256": "29a7c5a5e9e202668d41e7ed866a3e15e44119d0293ada71e8986f2c2bc3e8e5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-logo-source-v1.png",
+      "bytes": 586883,
+      "sha256": "08c01b24ec07bd60cd8e1d6324c3076078876de1d982d6dab04e2af6fb2734f8",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-logo-source-v2.png",
+      "bytes": 557771,
+      "sha256": "57419c2fd9abcc5db9fa3d703d77aa3d923ed3200da4abd4686039007143d9ce",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-logo-v2.png",
+      "bytes": 426782,
+      "sha256": "f64e0a7afbeda284e488bdbf743f652472654613da52562374a8014a68857718",
+      "dimensions": [
+        2083,
+        484
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-menubar-source-v1.png",
+      "bytes": 165696,
+      "sha256": "91e0bf3772e7f3a4a8f156e9a3cf8f14909514b6e05b88c0f5f329df30ff66b3",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-menubar-v1.png",
+      "bytes": 317,
+      "sha256": "9ec05ecc203cc7710b660a7779cf31c2145236b3f8dd08f4bd2c3e1cb65f77e3",
+      "dimensions": [
+        18,
+        18
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-menubar-v1@2x.png",
+      "bytes": 643,
+      "sha256": "f8b485cadd34b1806d08fd4df1d9febd11de3794e3861458d0b7fa96aa73464f",
+      "dimensions": [
+        36,
+        36
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-menubar-v1@3x.png",
+      "bytes": 956,
+      "sha256": "51e7322e8cf8615c977d3f9b82d8dfc1971acf9ed389d2b36a8f6f5c7ff2488f",
+      "dimensions": [
+        54,
+        54
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "file": "spext-review-v2.png",
+      "bytes": 260591,
+      "sha256": "00e13ab732af7720bb4aa6e7b21607a80f51b59fdd43c8775aeecad74c08e445",
+      "dimensions": [
+        1280,
+        1120
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "spext-social-preview-v2.png",
+      "bytes": 189721,
+      "sha256": "bd7f31b826ebead02a209e1b679bd5ee8aaefa722a358c1b2d7d30bdfa3132e7",
+      "dimensions": [
+        1280,
+        640
+      ],
+      "mode": "RGB"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Use case: logo-brand.
+Asset type: SPEXT macOS menubar template icon, one clean monochrome symbol.
+Input image 1 is the exact brand silhouette reference. Extract only the lime-green lightning bolt to the LEFT of the SPEXT letters. Reproduce this SAME compact thick rounded S-like zigzag lightning silhouette, with two diagonal pointed ends, upper point toward upper-right and lower point toward lower-left, broad rounded central shoulders and the same proportions. Remove all text and all reference colors.
+Render the silhouette solid pure BLACK on actual transparent background. A single clean filled connected shape, vector-like edges, no holes. Center it on a square canvas at about 70% of canvas height, with transparent margins on all sides. It will be scaled down to 18 pixels in a macOS menubar, so silhouette clarity is essential.
+No text, letters, frame, background rectangle, stroke, glow, gradient, shadow, texture, colored pixels, decorative details, additional lightning elements, checkered background, or mockup. Preserve the reference bolt identity exactly.
