@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Show toolchain
+        run: xcodebuild -version && swift --version
+      - name: Build app (unsigned)
+        run: |
+          xcodebuild -project SPEXT.xcodeproj -target SPEXT -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" build
+      - name: Guard tests
+        run: sh SPEXTTests/run-guard-tests.sh
