@@ -23,7 +23,7 @@ struct MenuBarView: View {
                         .foregroundStyle(.secondary)
                 }
                 .buttonStyle(.plain)
-                .help("Einstellungen")
+                .help("Settings")
             }
             .padding(.horizontal, 16)
             .padding(.top, 14)
@@ -59,7 +59,7 @@ struct MenuBarView: View {
 
                 if appState.isRecording || appState.isTranscribing {
                     let modeColor: Color = appState.currentMode == .polish ? .blue : .red
-                    let modeLabel = appState.currentMode == .polish ? "Nachricht" : "Direkt"
+                    let modeLabel: LocalizedStringKey = appState.currentMode == .polish ? "Message" : "Direct"
                     Text(modeLabel)
                         .font(.system(size: 10, weight: .medium))
                         .foregroundStyle(modeColor)
@@ -80,7 +80,7 @@ struct MenuBarView: View {
 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
-                        Text("Letzter Text")
+                        Text("Last text")
                             .font(.system(size: 10, weight: .medium))
                             .foregroundStyle(.tertiary)
 
@@ -95,7 +95,7 @@ struct MenuBarView: View {
                                 .foregroundStyle(.tertiary)
                         }
                         .buttonStyle(.plain)
-                        .help("Kopieren")
+                        .help("Copy")
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 10)
@@ -120,16 +120,16 @@ struct MenuBarView: View {
                     HStack(spacing: 6) {
                         Image(systemName: "creditcard.trianglebadge.exclamationmark")
                             .foregroundStyle(.orange)
-                        Text("OpenAI-Guthaben aufgebraucht")
+                        Text("OpenAI credit used up")
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundStyle(.primary)
                         Spacer()
                     }
-                    Text("Lade dein Guthaben auf, damit SPEXT wieder funktioniert.")
+                    Text("Top up your credit so SPEXT works again.")
                         .font(.system(size: 11))
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button("Jetzt Guthaben aufladen →") {
+                    Button("Top up credit now →") {
                         if let url = URL(string: "https://platform.openai.com/settings/organization/billing") {
                             NSWorkspace.shared.open(url)
                         }
@@ -165,7 +165,7 @@ struct MenuBarView: View {
 
                         VStack(alignment: .leading, spacing: 6) {
                             if !appState.hasInputMonitoringPermission {
-                                Button("Eingabeüberwachung öffnen") {
+                                Button("Open Input Monitoring") {
                                     appState.requestInputMonitoring()
                                 }
                                 .buttonStyle(.bordered)
@@ -173,7 +173,7 @@ struct MenuBarView: View {
                             }
 
                             if !appState.hasAccessibilityPermission {
-                                Button("Bedienungshilfen öffnen") {
+                                Button("Open Accessibility") {
                                     appState.requestAccessibility()
                                 }
                                 .buttonStyle(.bordered)
@@ -193,13 +193,13 @@ struct MenuBarView: View {
                 HotkeyHintRow(
                     icon:    "waveform",
                     color:   .red,
-                    label:   "Diktieren",
+                    label:   "Dictate",
                     keyName: HotkeyManager.label(for: appState.hotkeyFlags1)
                 )
                 HotkeyHintRow(
                     icon:    "sparkles",
                     color:   .blue,
-                    label:   "Nachricht",
+                    label:   "Message",
                     keyName: HotkeyManager.label(for: appState.hotkeyFlags2)
                 )
             }
@@ -210,7 +210,7 @@ struct MenuBarView: View {
 
             // ── Footer Buttons ───────────────────────────────────
             HStack {
-                Button("Beenden") {
+                Button("Quit") {
                     NSApplication.shared.terminate(nil)
                 }
                 .buttonStyle(.plain)
@@ -234,7 +234,7 @@ struct MenuBarView: View {
 private struct HotkeyHintRow: View {
     let icon:    String
     let color:   Color
-    let label:   String
+    let label:   LocalizedStringKey
     let keyName: String
 
     var body: some View {

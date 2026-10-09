@@ -11,6 +11,7 @@ SPEXT is a small macOS menu bar app for dictation. Hold a hotkey, speak, release
 - Text is pasted directly into the active app, followed by a space so you can keep typing
 - Dictionary for names and technical terms that are often misrecognized
 - Language setting: German, English or automatic detection
+- Interface in English and German, following the macOS system language
 - Floating recording indicator with a live waveform and a notice when no speech signal is detected
 - Recordings without speech are discarded instead of being sent, which avoids invented "transcripts" of silence
 - Reliable handling of AirPods and iPhone (Continuity) microphones, with optional automatic AirPods preference
@@ -38,7 +39,7 @@ macOS does not let apps enable these permissions themselves. SPEXT can only trig
 
 ## Usage
 
-The user interface is currently in German. An English localization is in progress.
+The interface is available in English and German and follows your macOS system language. The dictation language (German, English or automatic) is a separate setting and does not depend on the interface language.
 
 | Hotkey (default) | Mode |
 |---|---|

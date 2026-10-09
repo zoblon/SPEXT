@@ -1,0 +1,1545 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ (automatic)" : {
+      "comment" : "%@ is the AirPods name; shown when AirPods are picked automatically",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (automatisch)"
+          }
+        }
+      }
+    },
+    "**Accessibility** is a different section and does not replace this permission" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Bedienungshilfen** ist ein anderer Bereich und ersetzt diese Freigabe nicht"
+          }
+        }
+      }
+    },
+    "**Input Monitoring** is a different section and is not enough for automatic pasting" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Eingabeüberwachung** ist ein anderer Bereich und reicht für das automatische Einfügen nicht aus"
+          }
+        }
+      }
+    },
+    "A recording is already in progress." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine Aufnahme läuft bereits."
+          }
+        }
+      }
+    },
+    "API error: %@" : {
+      "comment" : "%@ is the message returned by the API (not localized)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API-Fehler: %@"
+          }
+        }
+      }
+    },
+    "Access" : {
+      "comment" : "Settings tab: API key and permissions",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zugang"
+          }
+        }
+      }
+    },
+    "Accessibility" : {
+      "comment" : "macOS privacy pane name",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedienungshilfen"
+          }
+        }
+      }
+    },
+    "Active: %@" : {
+      "comment" : "%@ is the name of the active microphone",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv: %@"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen"
+          }
+        }
+      }
+    },
+    "Allow" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erlauben"
+          }
+        }
+      }
+    },
+    "Audio buffer could not be allocated." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audiospeicher konnte nicht angelegt werden."
+          }
+        }
+      }
+    },
+    "Audio could not be merged." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio konnte nicht zusammengeführt werden."
+          }
+        }
+      }
+    },
+    "Audio file could not be created" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audiodatei konnte nicht erstellt werden"
+          }
+        }
+      }
+    },
+    "Audio file could not be created." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audiodatei konnte nicht erstellt werden."
+          }
+        }
+      }
+    },
+    "Audio file could not be read." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audiodatei konnte nicht gelesen werden."
+          }
+        }
+      }
+    },
+    "Audio file could not be written." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audiodatei konnte nicht geschrieben werden."
+          }
+        }
+      }
+    },
+    "Audio format could not be converted." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audioformat konnte nicht umgewandelt werden."
+          }
+        }
+      }
+    },
+    "Automatic" : {
+      "comment" : "Dictation language option: detect the language automatically",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch"
+          }
+        }
+      }
+    },
+    "CUSTOM WORDS" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EIGENE WÖRTER"
+          }
+        }
+      }
+    },
+    "Change" : {
+      "comment" : "Button to change a hotkey",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ändern"
+          }
+        }
+      }
+    },
+    "Check again" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneut prüfen"
+          }
+        }
+      }
+    },
+    "Check text" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Text bitte prüfen"
+          }
+        }
+      }
+    },
+    "Checking automatically…" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prüfe automatisch…"
+          }
+        }
+      }
+    },
+    "Click **+** and add **SPEXT** from your Applications folder" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klicke auf **+** und füge **SPEXT** aus deinem Programme-Ordner hinzu"
+          }
+        }
+      }
+    },
+    "Copy" : {
+      "comment" : "Tooltip of the copy button",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopieren"
+          }
+        }
+      }
+    },
+    "Create an API key at platform.openai.com → API keys. Cost: about $0.0045 per minute of recording." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstelle einen API Key unter platform.openai.com → API keys. Kosten: ca. $0,0045 pro Minute Aufnahme."
+          }
+        }
+      }
+    },
+    "Default microphone" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard-Mikrofon"
+          }
+        }
+      }
+    },
+    "Delete API key" : {
+      "comment" : "Tooltip",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API Key löschen"
+          }
+        }
+      }
+    },
+    "Detects the global shortcuts outside SPEXT." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erkennt die globalen Shortcuts außerhalb von SPEXT."
+          }
+        }
+      }
+    },
+    "Dictate" : {
+      "comment" : "Hotkey hint in the popover: plain dictation",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diktieren"
+          }
+        }
+      }
+    },
+    "Dictation saved" : {
+      "comment" : "Status line: rewriting failed, the original transcript is kept",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diktat gesichert"
+          }
+        }
+      }
+    },
+    "Dictionary" : {
+      "comment" : "Settings tab: custom words",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wörterbuch"
+          }
+        }
+      }
+    },
+    "Direct" : {
+      "comment" : "Badge in the popover while a direct dictation is running",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direkt"
+          }
+        }
+      }
+    },
+    "Direct transcription" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direkte Transkription"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "comment" : "Tooltip",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bearbeiten"
+          }
+        }
+      }
+    },
+    "Engine restart failed." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine-Neustart fehlgeschlagen."
+          }
+        }
+      }
+    },
+    "Engine restart failed: %@" : {
+      "comment" : "%@ is the system error description",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engine-Neustart fehlgeschlagen: %@"
+          }
+        }
+      }
+    },
+    "English" : {
+      "comment" : "Dictation language option",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Englisch"
+          }
+        }
+      }
+    },
+    "Error" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
+          }
+        }
+      }
+    },
+    "Fallback" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fallback"
+          }
+        }
+      }
+    },
+    "File error: %@" : {
+      "comment" : "%@ is the system error description",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datei-Fehler: %@"
+          }
+        }
+      }
+    },
+    "For several seconds at the end of the recording, no clear speech signal arrived. Please check the text before pasting." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Am Ende der Aufnahme kam mehrere Sekunden kein deutliches Sprachsignal an. Bitte prüfe den Text vor dem Einfügen."
+          }
+        }
+      }
+    },
+    "GPT Transcribe uses this list as keyword hints. Ideal for proper names, technical terms or words that are often misrecognized." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GPT Transcribe nutzt diese Liste als Keyword-Hinweise. Ideal für Eigennamen, Fachbegriffe oder Wörter, die oft falsch erkannt werden."
+          }
+        }
+      }
+    },
+    "General" : {
+      "comment" : "Settings tab",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allgemein"
+          }
+        }
+      }
+    },
+    "German" : {
+      "comment" : "Dictation language option",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deutsch"
+          }
+        }
+      }
+    },
+    "Go to **Privacy & Security → Accessibility**" : {
+      "comment" : "Markdown bold is kept",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gehe zu **Datenschutz & Sicherheit → Bedienungshilfen**"
+          }
+        }
+      }
+    },
+    "Go to **Privacy & Security → Input Monitoring**" : {
+      "comment" : "Markdown bold is kept",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gehe zu **Datenschutz & Sicherheit → Eingabeüberwachung**"
+          }
+        }
+      }
+    },
+    "Granted" : {
+      "comment" : "Permission status",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erteilt"
+          }
+        }
+      }
+    },
+    "Hold & release…" : {
+      "comment" : "Shown while a new hotkey is being captured",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halten & loslassen…"
+          }
+        }
+      }
+    },
+    "Hotkeys blocked" : {
+      "comment" : "Status line; keep it short (menu width)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotkeys blockiert"
+          }
+        }
+      }
+    },
+    "Input Monitoring" : {
+      "comment" : "macOS privacy pane name",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingabeüberwachung"
+          }
+        }
+      }
+    },
+    "Invalid API URL." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungültige API-URL."
+          }
+        }
+      }
+    },
+    "Keychain error" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schlüsselbund-Fehler"
+          }
+        }
+      }
+    },
+    "Language" : {
+      "comment" : "Dictation language picker",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprache"
+          }
+        }
+      }
+    },
+    "Last text" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzter Text"
+          }
+        }
+      }
+    },
+    "Later" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Später"
+          }
+        }
+      }
+    },
+    "Launch at login" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei Anmeldung starten"
+          }
+        }
+      }
+    },
+    "MICROPHONE" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MIKROFON"
+          }
+        }
+      }
+    },
+    "MODES" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MODI"
+          }
+        }
+      }
+    },
+    "Message" : {
+      "comment" : "Name of the message mode (badge and hotkey hint in the popover)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachricht"
+          }
+        }
+      }
+    },
+    "Microphone" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon"
+          }
+        }
+      }
+    },
+    "Microphone could not be resolved" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon konnte nicht aufgelöst werden"
+          }
+        }
+      }
+    },
+    "Microphone could not be selected" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon konnte nicht ausgewählt werden"
+          }
+        }
+      }
+    },
+    "Microphone could not be selected – please try again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon konnte nicht ausgewählt werden – bitte nochmal versuchen."
+          }
+        }
+      }
+    },
+    "Microphone delivers no audio data" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon liefert keine Audiodaten"
+          }
+        }
+      }
+    },
+    "Microphone error" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon-Fehler"
+          }
+        }
+      }
+    },
+    "Microphone format changed during startup" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofonformat hat sich während des Starts geändert"
+          }
+        }
+      }
+    },
+    "Microphone format invalid." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon-Format ungültig."
+          }
+        }
+      }
+    },
+    "Microphone format is not supported or not ready yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofonformat wird nicht unterstützt oder ist noch nicht bereit."
+          }
+        }
+      }
+    },
+    "Microphone selection was not confirmed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofon-Auswahl wurde nicht bestätigt"
+          }
+        }
+      }
+    },
+    "Music and sounds are paused while recording." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Musik und Töne werden während der Aufnahme pausiert."
+          }
+        }
+      }
+    },
+    "Mute system sound" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemton stummschalten"
+          }
+        }
+      }
+    },
+    "New word or name…" : {
+      "comment" : "Placeholder of the dictionary text field",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neues Wort oder Name…"
+          }
+        }
+      }
+    },
+    "No API key" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein API Key"
+          }
+        }
+      }
+    },
+    "No credit" : {
+      "comment" : "Status line: OpenAI quota exhausted",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Guthaben"
+          }
+        }
+      }
+    },
+    "No response received from the API." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Antwort von der API erhalten."
+          }
+        }
+      }
+    },
+    "No speech signal" : {
+      "comment" : "Shown in the recording pill when the microphone delivers no speech",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Sprachsignal"
+          }
+        }
+      }
+    },
+    "No words added yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Wörter eingetragen."
+          }
+        }
+      }
+    },
+    "OPENAI API KEY" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OPENAI API KEY"
+          }
+        }
+      }
+    },
+    "Open Accessibility" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedienungshilfen öffnen"
+          }
+        }
+      }
+    },
+    "Open Input Monitoring" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingabeüberwachung öffnen"
+          }
+        }
+      }
+    },
+    "OpenAI credit used up" : {
+      "comment" : "Headline of the banner when the OpenAI quota is exhausted",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAI-Guthaben aufgebraucht"
+          }
+        }
+      }
+    },
+    "OpenAI credit used up." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAI-Guthaben aufgebraucht."
+          }
+        }
+      }
+    },
+    "PERMISSIONS" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BERECHTIGUNGEN"
+          }
+        }
+      }
+    },
+    "PROCESSING" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VERARBEITUNG"
+          }
+        }
+      }
+    },
+    "Paste blocked" : {
+      "comment" : "Status line; keep it short (menu width)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einfügen blockiert"
+          }
+        }
+      }
+    },
+    "Pasted" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eingefügt"
+          }
+        }
+      }
+    },
+    "Pastes transcribed text automatically via ⌘V." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fügt transkribierten Text automatisch per ⌘V ein."
+          }
+        }
+      }
+    },
+    "Please enter your OpenAI API key in the settings." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte OpenAI API Key in den Einstellungen eingeben."
+          }
+        }
+      }
+    },
+    "Preparing recording…" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme wird vorbereitet…"
+          }
+        }
+      }
+    },
+    "Quit" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beenden"
+          }
+        }
+      }
+    },
+    "Ready" : {
+      "comment" : "Status line: idle",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bereit"
+          }
+        }
+      }
+    },
+    "Recording (message)…" : {
+      "comment" : "Status line: message mode is being recorded",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme (Nachricht)…"
+          }
+        }
+      }
+    },
+    "Recording could not be finalized: %@" : {
+      "comment" : "%@ is the system error description",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme konnte nicht fertiggestellt werden: %@"
+          }
+        }
+      }
+    },
+    "Recording error" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme-Fehler"
+          }
+        }
+      }
+    },
+    "Recording limit reached" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme-Limit erreicht"
+          }
+        }
+      }
+    },
+    "Recording was ended." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme wurde beendet."
+          }
+        }
+      }
+    },
+    "Recording was written incompletely – please record again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme unvollständig geschrieben – bitte nochmal aufnehmen."
+          }
+        }
+      }
+    },
+    "Recording…" : {
+      "comment" : "Status line: direct dictation is being recorded",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahme läuft…"
+          }
+        }
+      }
+    },
+    "Records your voice." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nimmt deine Sprache auf."
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "comment" : "Tooltip",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entfernen"
+          }
+        }
+      }
+    },
+    "Reopen System Settings" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemeinstellungen erneut öffnen"
+          }
+        }
+      }
+    },
+    "Request" : {
+      "comment" : "Button next to a single missing permission",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anfordern"
+          }
+        }
+      }
+    },
+    "Request could not be encoded." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anfrage konnte nicht kodiert werden."
+          }
+        }
+      }
+    },
+    "Request entries" : {
+      "comment" : "Primary button: asks macOS for all missing permissions",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einträge anfordern"
+          }
+        }
+      }
+    },
+    "Required for automatic pasting via ⌘V. Input Monitoring is not enough for that." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notwendig für automatisches Einfügen per ⌘V. Eingabeüberwachung reicht dafür nicht."
+          }
+        }
+      }
+    },
+    "Required for voice recording." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notwendig für die Sprachaufnahme."
+          }
+        }
+      }
+    },
+    "Required so global hotkeys also work outside SPEXT." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notwendig, damit globale Hotkeys auch außerhalb von SPEXT reagieren."
+          }
+        }
+      }
+    },
+    "Response could not be decoded." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antwort konnte nicht dekodiert werden."
+          }
+        }
+      }
+    },
+    "Restart SPEXT if macOS asks you to" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starte SPEXT neu, falls macOS dich dazu auffordert"
+          }
+        }
+      }
+    },
+    "Return to SPEXT – the status updates automatically" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kehre zu SPEXT zurück – der Status aktualisiert sich automatisch"
+          }
+        }
+      }
+    },
+    "Rewriting" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umformulierung"
+          }
+        }
+      }
+    },
+    "Rewriting failed. The original dictation is ready to copy. %@" : {
+      "comment" : "%@ is the error description",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umformulierung fehlgeschlagen. Das ursprüngliche Diktat steht zum Kopieren bereit. %@"
+          }
+        }
+      }
+    },
+    "Rewriting is only used for mode 2 (Write message)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umformulierung wird nur für Modus 2 (Nachricht schreiben) verwendet."
+          }
+        }
+      }
+    },
+    "Rewriting…" : {
+      "comment" : "Status line: the transcript is being rewritten into a message",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wird umformuliert…"
+          }
+        }
+      }
+    },
+    "SPEXT" : {
+      "shouldTranslate" : false
+    },
+    "SPEXT copied the text to the clipboard but cannot trigger ⌘V without Accessibility access. Input Monitoring is not enough for that. Allow SPEXT in System Settings → Privacy & Security → Accessibility, or press ⌘V manually once." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT hat den Text in die Zwischenablage kopiert, darf aber ohne Bedienungshilfen-Zugriff kein ⌘V auslösen. Eingabeüberwachung reicht dafür nicht aus. Erlaube SPEXT in Systemeinstellungen → Datenschutz & Sicherheit → Bedienungshilfen oder drücke einmal manuell ⌘V."
+          }
+        }
+      }
+    },
+    "SPEXT copied the text to the clipboard but did not paste it automatically. The target window or the clipboard changed during processing, or Accessibility access is missing. Switch to the field you want and press ⌘V." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT hat den Text in die Zwischenablage kopiert, aber nicht automatisch eingefügt. Das Zielfenster oder die Zwischenablage hat sich während der Verarbeitung geändert, oder der Bedienungshilfen-Zugriff fehlt. Wechsle zum gewünschten Feld und drücke ⌘V."
+          }
+        }
+      }
+    },
+    "SPEXT is not allowed to monitor global keyboard shortcuts. Allow SPEXT in System Settings → Privacy & Security → Input Monitoring. Accessibility alone is not enough for that." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT darf keine globalen Tastaturbefehle überwachen. Erlaube SPEXT in Systemeinstellungen → Datenschutz & Sicherheit → Eingabeüberwachung. Bedienungshilfen allein reicht dafür nicht aus."
+          }
+        }
+      }
+    },
+    "SPEXT needs these permissions so shortcuts, recording and automatic pasting work." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT braucht diese Freigaben, damit Shortcuts, Aufnahme und automatisches Einfügen funktionieren."
+          }
+        }
+      }
+    },
+    "SPEXT starts automatically after every restart." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT startet automatisch nach jedem Neustart."
+          }
+        }
+      }
+    },
+    "SYSTEM" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SYSTEM"
+          }
+        }
+      }
+    },
+    "Set up SPEXT" : {
+      "comment" : "Title of the permission setup window",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT einrichten"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "comment" : "Tooltip of the gear button in the menu bar popover",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        }
+      }
+    },
+    "Speech is transcribed 1:1 and inserted immediately." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprache wird 1:1 transkribiert und sofort eingefügt."
+          }
+        }
+      }
+    },
+    "System Settings was opened" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systemeinstellungen wurden geöffnet"
+          }
+        }
+      }
+    },
+    "The API key could not be saved to the Keychain. The previous value is kept." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der API-Key konnte nicht im Schlüsselbund gespeichert werden. Der bisherige Wert bleibt erhalten."
+          }
+        }
+      }
+    },
+    "The API key could not be stored securely in the Keychain. The previous value is kept." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der API-Key konnte nicht sicher im Schlüsselbund gespeichert werden. Der bisherige Wert bleibt erhalten."
+          }
+        }
+      }
+    },
+    "The audio file could not be written completely during recording. Please record again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audiodatei konnte während der Aufnahme nicht vollständig geschrieben werden. Bitte nochmal aufnehmen."
+          }
+        }
+      }
+    },
+    "The current microphone format is not supported. The connection is being re-established." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das aktuelle Mikrofonformat wird nicht unterstützt. Die Verbindung wird neu aufgebaut."
+          }
+        }
+      }
+    },
+    "The microphone connection was interrupted. Please record again or choose a different microphone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Mikrofonverbindung wurde unterbrochen. Bitte erneut aufnehmen oder ein anderes Mikrofon wählen."
+          }
+        }
+      }
+    },
+    "The microphone connection was re-established during recording. Please check the text for missing words." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Mikrofonverbindung wurde während der Aufnahme neu aufgebaut. Bitte prüfe den Text auf fehlende Wörter."
+          }
+        }
+      }
+    },
+    "The microphone no longer delivers audio data. Please record again or choose a different microphone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Mikrofon liefert keine Audiodaten mehr. Bitte erneut aufnehmen oder ein anderes Mikrofon wählen."
+          }
+        }
+      }
+    },
+    "The microphone was reconfigured during recording. Please record again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Mikrofon wurde während der Aufnahme neu konfiguriert. Bitte nochmal aufnehmen."
+          }
+        }
+      }
+    },
+    "The recording contains no audio data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Aufnahme enthält keine Audiodaten."
+          }
+        }
+      }
+    },
+    "The recording is transcribed and then written as a polite message." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Aufnahme wird transkribiert und anschließend als höfliche Nachricht formuliert."
+          }
+        }
+      }
+    },
+    "The rewrite was cut off. Please dictate a shorter text or try again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Umformulierung wurde abgeschnitten. Bitte kürzer diktieren oder erneut versuchen."
+          }
+        }
+      }
+    },
+    "The transcription consisted only of dictionary words. The microphone signal was probably empty or too quiet – please record again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Transkription bestand nur aus Wörterbuch-Wörtern. Wahrscheinlich war das Mikrofonsignal leer oder zu leise – bitte nochmal aufnehmen."
+          }
+        }
+      }
+    },
+    "Top up credit now →" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt Guthaben aufladen →"
+          }
+        }
+      }
+    },
+    "Top up your credit so SPEXT works again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lade dein Guthaben auf, damit SPEXT wieder funktioniert."
+          }
+        }
+      }
+    },
+    "Transcribing…" : {
+      "comment" : "Status line",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkribiere…"
+          }
+        }
+      }
+    },
+    "Transcription" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkription"
+          }
+        }
+      }
+    },
+    "Turn off to dictate with a different microphone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Diktieren über ein anderes Mikrofon ausschalten."
+          }
+        }
+      }
+    },
+    "Turn on the switch next to **SPEXT**" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiviere den Schalter neben **SPEXT**"
+          }
+        }
+      }
+    },
+    "Use AirPods automatically" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AirPods automatisch verwenden"
+          }
+        }
+      }
+    },
+    "With the automatic selection turned off, your microphone choice also applies when AirPods are connected. This lets you listen through the AirPods and dictate through the Mac's microphone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei ausgeschalteter Automatik gilt deine Mikrofonwahl auch mit verbundenen AirPods. So kannst du über die AirPods hören und über das Mac-Mikrofon diktieren."
+          }
+        }
+      }
+    },
+    "Write message" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachricht schreiben"
+          }
+        }
+      }
+    },
+    "macOS requires your confirmation. SPEXT can request the entries and guide you to the right place, but cannot enable them without your approval." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS verlangt deine Bestätigung. SPEXT kann die Einträge anfordern und dich an die richtige Stelle führen, sie aber nicht ohne Zustimmung aktivieren."
+          }
+        }
+      }
+    },
+    "sk-…" : {
+      "shouldTranslate" : false
+    },
+    "✕" : {
+      "shouldTranslate" : false
+    }
+  },
+  "version" : "1.0"
+}

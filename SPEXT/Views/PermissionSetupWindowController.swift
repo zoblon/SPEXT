@@ -30,7 +30,7 @@ final class PermissionSetupWindowController {
             backing: .buffered,
             defer: false
         )
-        window.title = "SPEXT einrichten"
+        window.title = String(localized: "Set up SPEXT")
         window.contentView = hostingView
         window.isReleasedWhenClosed = false
         window.center()

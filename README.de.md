@@ -11,6 +11,7 @@ SPEXT ist eine kleine macOS-Menüleisten-App zum Diktieren. Du hältst einen Hot
 - Der Text wird direkt in die aktive App eingefügt, gefolgt von einem Leerzeichen, damit du weiterschreiben kannst
 - Wörterbuch für Namen und Fachbegriffe, die oft falsch erkannt werden
 - Spracheinstellung: Deutsch, Englisch oder automatische Erkennung
+- Oberfläche auf Deutsch und Englisch, passend zur macOS-Systemsprache
 - Schwebende Aufnahmeanzeige mit Live-Wellenform und Hinweis, wenn kein Sprachsignal ankommt
 - Aufnahmen ohne Sprache werden verworfen statt gesendet. So entstehen keine erfundenen »Transkripte« von Stille
 - Zuverlässiger Umgang mit AirPods- und iPhone-Mikrofonen (Continuity), auf Wunsch mit automatischem Vorrang für AirPods
@@ -38,7 +39,7 @@ macOS erlaubt Apps nicht, diese Berechtigungen selbst zu aktivieren. SPEXT kann 
 
 ## Bedienung
 
-Die Oberfläche ist derzeit deutsch. Eine englische Lokalisierung ist in Arbeit.
+Die Oberfläche gibt es auf Deutsch und Englisch; sie folgt der macOS-Systemsprache. Die Diktatsprache (Deutsch, Englisch oder automatisch) ist eine eigene Einstellung und unabhängig von der Oberflächensprache.
 
 | Hotkey (Standard) | Modus |
 |---|---|

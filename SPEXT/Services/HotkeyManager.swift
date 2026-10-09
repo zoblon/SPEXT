@@ -88,8 +88,8 @@ class HotkeyManager {
             // Undo the box retain, since no tap was created
             Unmanaged<CallbackBox>.fromOpaque(boxPtr).release()
             retainedBoxPtr = nil
-            print("⚠️ SPEXT: CGEventTap konnte nicht erstellt werden.\n"
-                + "   → Einstellungen › Datenschutz & Sicherheit › Eingabeüberwachung → SPEXT aktivieren.")
+            print("⚠️ SPEXT: CGEventTap could not be created.\n"
+                + "   → System Settings › Privacy & Security › Input Monitoring → enable SPEXT.")
             return
         }
 

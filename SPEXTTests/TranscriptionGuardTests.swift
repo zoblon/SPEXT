@@ -9,9 +9,20 @@ private func expect(_ condition: @autoclosure () -> Bool, _ message: String) {
     }
 }
 
+/// Interface language this run uses. The guard-test script runs the binary once per language
+/// (`-AppleLanguages "(de)"` / `"(en)"`) inside a bundle that carries the real string catalog.
+private let interfaceLanguage: String = Bundle.main.preferredLocalizations.first ?? "en"
+
+/// Picks the expectation for the interface language of this run.
+private func localized<T>(de: T, en: T) -> T {
+    interfaceLanguage == "de" ? de : en
+}
+
 @main
 struct TranscriptionGuardTests {
     static func main() {
+        testLocalization()
+        testQuoteNormalizationFollowsDictationLanguage()
         testIPhoneStartupLifecycle()
         testRecordingReliability()
 
@@ -254,9 +265,12 @@ struct TranscriptionGuardTests {
             "Status für blockiertes Einfügen muss kurz genug für das Menü sein"
         )
 
+        let accessibilityName = localized(de: "Bedienungshilfen", en: "Accessibility")
+        let inputMonitoringName = localized(de: "Eingabeüberwachung", en: "Input Monitoring")
+
         expect(
-            AppStatusText.pasteBlockedExplanation.contains("Bedienungshilfen")
-                && AppStatusText.pasteBlockedExplanation.contains("Eingabeüberwachung")
+            AppStatusText.pasteBlockedExplanation.contains(accessibilityName)
+                && AppStatusText.pasteBlockedExplanation.contains(inputMonitoringName)
                 && AppStatusText.pasteBlockedExplanation.contains("⌘V"),
             "Fehlertext muss Ursache, falschen Berechtigungsbereich und manuellen Fallback nennen"
         )
@@ -267,8 +281,8 @@ struct TranscriptionGuardTests {
         )
 
         expect(
-            AppStatusText.hotkeysBlockedExplanation.contains("Eingabeüberwachung")
-                && AppStatusText.hotkeysBlockedExplanation.contains("Bedienungshilfen"),
+            AppStatusText.hotkeysBlockedExplanation.contains(inputMonitoringName)
+                && AppStatusText.hotkeysBlockedExplanation.contains(accessibilityName),
             "Hotkey-Fehlertext muss Eingabeüberwachung von Bedienungshilfen abgrenzen"
         )
 
@@ -315,8 +329,12 @@ struct TranscriptionGuardTests {
         )
         expect(checklist.needsSetup, "Fehlende Berechtigungen müssen ein Setup-Angebot auslösen")
         expect(
-            checklist.missingPermissions.map(\.title) == ["Eingabeüberwachung", "Mikrofon"],
+            checklist.missingPermissions == [.inputMonitoring, .microphone],
             "Berechtigungscheck muss fehlende Rechte in nutzerverständlicher Reihenfolge melden"
+        )
+        expect(
+            checklist.missingPermissions.map(\.title) == [inputMonitoringName, localized(de: "Mikrofon", en: "Microphone")],
+            "Berechtigungstitel müssen in der Oberflächensprache angezeigt werden"
         )
 
         let normalizedQuotes = FrenchQuoteNormalizer.normalize(
@@ -367,7 +385,7 @@ struct TranscriptionGuardTests {
             expect(false, "Abgeschnittene Umformulierungsantwort darf nicht eingefügt werden")
         case .failure(let error):
             expect(
-                error.errorDescription?.contains("abgeschnitten") == true,
+                error.errorDescription?.contains(localized(de: "abgeschnitten", en: "cut off")) == true,
                 "Abgeschnittene Umformulierungsantwort muss einen verständlichen Fehler liefern"
             )
         }
@@ -456,6 +474,93 @@ struct TranscriptionGuardTests {
         )
         print("PASS: Alle SPEXT-Regressionsprüfungen")
     }
+}
+
+/// The texts come from the string catalog in the active interface language. This also proves
+/// that the run really uses the language it claims to (and that German wording is kept).
+private func testLocalization() {
+    expect(
+        interfaceLanguage == "de" || interfaceLanguage == "en",
+        "Der Test muss mit Deutsch oder Englisch als Oberflächensprache laufen (war: \(interfaceLanguage))"
+    )
+    expect(
+        AppStatusText.ready == localized(de: "Bereit", en: "Ready"),
+        "Statustexte müssen aus dem String Catalog in der Oberflächensprache stammen"
+    )
+    expect(
+        AppStatusText.pasted == localized(de: "Eingefügt", en: "Pasted"),
+        "Der Status »Eingefügt« muss lokalisiert sein, weil AppState ihn vergleicht"
+    )
+    expect(
+        AppStatusText.rewriteFailed("Details").hasSuffix(" Details")
+            && AppStatusText.rewriteFailed("Details").hasPrefix(
+                localized(de: "Umformulierung fehlgeschlagen.", en: "Rewriting failed.")
+            ),
+        "Fehlertexte mit Platzhalter müssen die Ursache anhängen"
+    )
+    expect(
+        SPEXTError.apiError("boom").errorDescription == localized(de: "API-Fehler: boom", en: "API error: boom"),
+        "Fehlertexte mit Platzhalter müssen lokalisiert werden"
+    )
+    expect(
+        SPEXTError.quotaExceeded.errorDescription == localized(de: "OpenAI-Guthaben aufgebraucht.", en: "OpenAI credit used up."),
+        "Der Guthaben-Fehler muss lokalisiert sein"
+    )
+    expect(
+        HotkeyManager.label(for: CGEventFlags(rawValue: UInt64(HotkeySettings.defaultDirectRaw))) == "ROPT+RCMD",
+        "Hotkey-Kürzel sind technische Labels und dürfen nicht übersetzt werden"
+    )
+    print("PASS: Oberflächensprache \(interfaceLanguage)")
+}
+
+/// Guillemets (»…«) are German typography. They must follow the dictation language, never be
+/// applied to English dictation, and never when the language is unclear.
+private func testQuoteNormalizationFollowsDictationLanguage() {
+    let germanText = #"Er sagte "Hallo" und ging dann nach Hause."#
+    let germanResult = "Er sagte »Hallo« und ging dann nach Hause."
+    let englishText = #"He said "hello" and then he went home."#
+
+    expect(
+        FrenchQuoteNormalizer.normalize(englishText, dictationLanguage: "en") == englishText,
+        "Englische Diktate dürfen bei eingestellter Sprache Englisch nicht in »« umgewandelt werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(germanText, dictationLanguage: "de") == germanResult,
+        "Bei eingestelltem Deutsch müssen Anführungszeichen zu »« werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(englishText, dictationLanguage: "") == englishText,
+        "Englische Diktate dürfen bei automatischer Erkennung nicht in »« umgewandelt werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(#"Let's discuss the "update" tomorrow, okay?"#, dictationLanguage: "") == #"Let's discuss the "update" tomorrow, okay?"#,
+        "Ein englischer Satz mit englischem Fremdwort darf bei automatischer Erkennung nicht umgewandelt werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(germanText, dictationLanguage: "") == germanResult,
+        "Eindeutig deutsche Diktate müssen bei automatischer Erkennung zu »« werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(#"Das "Meeting" ist morgen."#, dictationLanguage: "") == "Das »Meeting« ist morgen.",
+        "Deutsche Sätze mit englischem Fremdwort müssen bei automatischer Erkennung umgewandelt werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(#""Hallo""#, dictationLanguage: "") == #""Hallo""#,
+        "Bei Unklarheit (zu kurzer Text) darf bei automatischer Erkennung nicht umgewandelt werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(#"Merci beaucoup, c'est "parfait" pour moi."#, dictationLanguage: "") == #"Merci beaucoup, c'est "parfait" pour moi."#,
+        "Andere Sprachen dürfen bei automatischer Erkennung nicht umgewandelt werden"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(englishText, dictationLanguage: "fr") == englishText,
+        "Unbekannte Spracheinstellungen dürfen nichts umwandeln"
+    )
+    expect(
+        FrenchQuoteNormalizer.normalize(englishText, dictationLanguage: "de") == "He said »hello« and then he went home.",
+        "Bei eingestelltem Deutsch gilt die Einstellung, auch wenn der Text englisch ist"
+    )
+    print("PASS: Anführungszeichen folgen der Diktatsprache, nicht der Oberflächensprache")
 }
 
 private func testIPhoneStartupLifecycle() {

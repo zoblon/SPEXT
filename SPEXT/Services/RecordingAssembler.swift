@@ -29,7 +29,7 @@ enum RecordingAssembler {
             guard input.length > 0 else { continue }
             guard let converter = AVAudioConverter(from: input.processingFormat, to: format),
                   let converted = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 4096) else {
-                throw assemblyError("Audioformat konnte nicht umgewandelt werden.")
+                throw assemblyError(String(localized: "Audio format could not be converted."))
             }
             var readError: Error?
             var emptyPasses = 0
@@ -42,7 +42,7 @@ enum RecordingAssembler {
                     }
                     guard let buffer = AVAudioPCMBuffer(pcmFormat: input.processingFormat,
                                                          frameCapacity: max(requested, 1)) else {
-                        readError = assemblyError("Audiospeicher konnte nicht angelegt werden.")
+                        readError = assemblyError(String(localized: "Audio buffer could not be allocated."))
                         status.pointee = .endOfStream
                         return nil
                     }
@@ -58,7 +58,7 @@ enum RecordingAssembler {
                 }
                 if let readError { throw readError }
                 if let conversionError { throw conversionError }
-                if status == .error { throw assemblyError("Audio konnte nicht zusammengeführt werden.") }
+                if status == .error { throw assemblyError(String(localized: "Audio could not be merged.")) }
                 if converted.frameLength > 0 {
                     try output.write(from: converted)
                     emptyPasses = 0
@@ -69,7 +69,7 @@ enum RecordingAssembler {
                 guard emptyPasses < 3 else { throw assemblyError("Audio-Umwandlung liefert keine Daten.") }
             }
         }
-        guard output.length > 0 else { throw assemblyError("Die Aufnahme enthält keine Audiodaten.") }
+        guard output.length > 0 else { throw assemblyError(String(localized: "The recording contains no audio data.")) }
     }
 
     private static func assemblyError(_ message: String) -> NSError {

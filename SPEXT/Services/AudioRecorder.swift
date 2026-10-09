@@ -302,7 +302,7 @@ class AudioRecorder: ObservableObject {
         guard beginRecordingState() else {
             completion(RecordingStartResult(
                 sessionID: currentSessionID,
-                errorMessage: "Eine Aufnahme läuft bereits."
+                errorMessage: String(localized: "A recording is already in progress.")
             ))
             return nil
         }
@@ -359,14 +359,14 @@ class AudioRecorder: ObservableObject {
             let format = engine.inputNode.outputFormat(forBus: 0)
             recordingFormatDescription = Self.describe(format: format)
             guard format.sampleRate > 0, format.channelCount > 0 else {
-                failStartup("Mikrofon-Format ungültig.")
+                failStartup(String(localized: "Microphone format invalid."))
                 return
             }
             writerLock.lock()
             let prepared = prepareNewFile(format: format)
             writerLock.unlock()
             guard prepared else {
-                failStartup(lastError ?? "Audiodatei konnte nicht erstellt werden.")
+                failStartup(lastError ?? String(localized: "Audio file could not be created."))
                 return
             }
 
@@ -394,14 +394,14 @@ class AudioRecorder: ObservableObject {
 
     private func startColdAttempt(attempt: Int, uid: String) {
         guard checkStillRecording(), !startupTerminalDelivered else {
-            finishStart(errorMessage: "Aufnahme wurde beendet.", exposeError: false)
+            finishStart(errorMessage: String(localized: "Recording was ended."), exposeError: false)
             return
         }
 
         let elapsed = CACurrentMediaTime() - startupBeganAt
         guard attempt <= RecorderStartupPolicy.maximumAttempts,
               elapsed < RecorderStartupPolicy.totalBudget else {
-            failStartup("Mikrofonformat wird nicht unterstützt oder ist noch nicht bereit.")
+            failStartup(String(localized: "Microphone format is not supported or not ready yet."))
             return
         }
 
@@ -423,12 +423,12 @@ class AudioRecorder: ObservableObject {
         if !uid.isEmpty {
             let setStarted = CACurrentMediaTime()
             guard setInputDevice(uid: uid) else {
-                retryColdStart(attempt: attempt, uid: uid, message: "Mikrofon konnte nicht ausgewählt werden")
+                retryColdStart(attempt: attempt, uid: uid, message: String(localized: "Microphone could not be selected"))
                 return
             }
             logStartupPhase("device-set", attempt: attempt, generation: generation, beganAt: setStarted)
             guard let expectedID = AudioDevice.coreAudioID(forUID: uid) else {
-                retryColdStart(attempt: attempt, uid: uid, message: "Mikrofon konnte nicht aufgelöst werden")
+                retryColdStart(attempt: attempt, uid: uid, message: String(localized: "Microphone could not be resolved"))
                 return
             }
             verifySelectedDevice(
@@ -457,7 +457,7 @@ class AudioRecorder: ObservableObject {
             return
         }
         guard CACurrentMediaTime() < deadline else {
-            retryColdStart(attempt: attempt, uid: uid, message: "Mikrofon-Auswahl wurde nicht bestätigt")
+            retryColdStart(attempt: attempt, uid: uid, message: String(localized: "Microphone selection was not confirmed"))
             return
         }
         recorderQueue.asyncAfter(deadline: .now() + RecorderStartupPolicy.deviceVerificationInterval) { [weak self] in
@@ -506,7 +506,7 @@ class AudioRecorder: ObservableObject {
                 "Engine start failed session=\(self.currentSessionID.uuidString, privacy: .public) attempt=\(attempt, privacy: .public) generation=\(generation, privacy: .public) code=\(nsError.code, privacy: .public) error=\(error.localizedDescription, privacy: .public)"
             )
             let message = nsError.code == Int(kAudioUnitErr_FormatNotSupported)
-                ? "Das aktuelle Mikrofonformat wird nicht unterstützt. Die Verbindung wird neu aufgebaut."
+                ? String(localized: "The current microphone format is not supported. The connection is being re-established.")
                 : error.localizedDescription
             retryColdStart(attempt: attempt, uid: uid, message: message)
             return
@@ -522,12 +522,12 @@ class AudioRecorder: ObservableObject {
             if self.currentWrittenFrames() > 0 {
                 self.completeSuccessfulStart()
             } else if self.currentWriteFailureSignaled() {
-                self.failStartup("Audiodatei konnte nicht geschrieben werden.")
+                self.failStartup(String(localized: "Audio file could not be written."))
             } else {
                 recorderLogger.warning(
                     "Engine started without writable frames session=\(self.currentSessionID.uuidString, privacy: .public) attempt=\(attempt, privacy: .public) generation=\(generation, privacy: .public) timeout=\(timeout, privacy: .public)"
                 )
-                self.retryColdStart(attempt: attempt, uid: uid, message: "Mikrofon liefert keine Audiodaten")
+                self.retryColdStart(attempt: attempt, uid: uid, message: String(localized: "Microphone delivers no audio data"))
             }
         }
     }
@@ -698,7 +698,7 @@ class AudioRecorder: ObservableObject {
 
         recorderQueue.async { [weak self] in
             guard let self else { return }
-            self.finishStart(errorMessage: "Aufnahme wurde beendet.", exposeError: false)
+            self.finishStart(errorMessage: String(localized: "Recording was ended."), exposeError: false)
 
             self.writerLock.lock()
             self.audioFile = nil
@@ -738,7 +738,7 @@ class AudioRecorder: ObservableObject {
             let resultURL: URL?
             if let url {
                 if stalled || stats.writeFailureSignaled || self.pendingConfigRestartID != nil {
-                    self.lastError = "Die Mikrofonverbindung wurde unterbrochen. Bitte erneut aufnehmen oder ein anderes Mikrofon wählen."
+                    self.lastError = String(localized: "The microphone connection was interrupted. Please record again or choose a different microphone.")
                     resultURL = nil
                 } else if duration < 1.0 || stats.writtenFrames == 0 {
                     recorderLogger.warning(
@@ -762,7 +762,7 @@ class AudioRecorder: ObservableObject {
                     try? FileManager.default.removeItem(at: url)
                     resultURL = nil
                 } else if stats.receivedFrames != stats.writtenFrames {
-                    self.lastError = "Aufnahme unvollständig geschrieben – bitte nochmal aufnehmen."
+                    self.lastError = String(localized: "Recording was written incompletely – please record again.")
                     recorderLogger.error(
                         "Recording discarded because frame counters differ session=\(self.currentSessionID.uuidString, privacy: .public) receivedFrames=\(stats.receivedFrames, privacy: .public) writtenFrames=\(stats.writtenFrames, privacy: .public)"
                     )
@@ -773,10 +773,10 @@ class AudioRecorder: ObservableObject {
                         resultURL = try RecordingAssembler.export(segments: segments)
                         self.lastError = nil
                         if quietTail {
-                            self.lastWarning = "Am Ende der Aufnahme kam mehrere Sekunden kein deutliches Sprachsignal an. Bitte prüfe den Text vor dem Einfügen."
+                            self.lastWarning = String(localized: "For several seconds at the end of the recording, no clear speech signal arrived. Please check the text before pasting.")
                         }
                     } catch {
-                        self.lastError = "Aufnahme konnte nicht fertiggestellt werden: \(error.localizedDescription)"
+                        self.lastError = String(localized: "Recording could not be finalized: \(error.localizedDescription)")
                         resultURL = nil
                     }
                 }
@@ -867,7 +867,7 @@ class AudioRecorder: ObservableObject {
                         throw NSError(
                             domain: "SPEXT.AudioWriter",
                             code: -1,
-                            userInfo: [NSLocalizedDescriptionKey: self.lastError ?? "Audiodatei konnte nicht erstellt werden"]
+                            userInfo: [NSLocalizedDescriptionKey: self.lastError ?? String(localized: "Audio file could not be created")]
                         )
                     }
                 }
@@ -960,7 +960,7 @@ class AudioRecorder: ObservableObject {
         recorderQueue.async { [weak self] in
             guard let self, self.isCurrentSession(sessionID) else { return }
             self.failOngoingRecording(
-                message: "Audiodatei konnte während der Aufnahme nicht vollständig geschrieben werden. Bitte nochmal aufnehmen."
+                message: String(localized: "The audio file could not be written completely during recording. Please record again.")
             )
         }
     }
@@ -1030,7 +1030,7 @@ class AudioRecorder: ObservableObject {
             retryColdStart(
                 attempt: max(currentStartupAttempt, 1),
                 uid: warmDeviceUID ?? "",
-                message: "Mikrofonformat hat sich während des Starts geändert"
+                message: String(localized: "Microphone format changed during startup")
             )
             return
         }
@@ -1038,7 +1038,7 @@ class AudioRecorder: ObservableObject {
         guard (recordingDeviceIsAirPods || recordingDevice?.isContinuityLike == true),
               configChangeCount <= 4 else {
             failOngoingRecording(
-                message: "Das Mikrofon wurde während der Aufnahme neu konfiguriert. Bitte nochmal aufnehmen."
+                message: String(localized: "The microphone was reconfigured during recording. Please record again.")
             )
             return
         }
@@ -1065,7 +1065,7 @@ class AudioRecorder: ObservableObject {
         realtimeState.micReadySignaled = false
         stateLock.unlock()
         if hadSpeech {
-            lastWarning = "Die Mikrofonverbindung wurde während der Aufnahme neu aufgebaut. Bitte prüfe den Text auf fehlende Wörter."
+            lastWarning = String(localized: "The microphone connection was re-established during recording. Please check the text for missing words.")
         }
 
         // Show dots – the HFP connection is being re-established
@@ -1106,7 +1106,7 @@ class AudioRecorder: ObservableObject {
                 recorderLogger.error(
                     "Input device selection failed after config change session=\(self.currentSessionID.uuidString, privacy: .public) attempt=\(attempt, privacy: .public)"
                 )
-                failOngoingRecording(message: "Mikrofon konnte nicht ausgewählt werden – bitte nochmal versuchen.")
+                failOngoingRecording(message: String(localized: "Microphone could not be selected – please try again."))
                 return
             }
             recorderLogger.warning(
@@ -1155,7 +1155,7 @@ class AudioRecorder: ObservableObject {
             )
         } catch {
             setWriting(false)
-            lastError = "Engine-Neustart fehlgeschlagen: \(error.localizedDescription)"
+            lastError = String(localized: "Engine restart failed: \(error.localizedDescription)")
             recorderLogger.error(
                 "Engine restart failed after config change session=\(self.currentSessionID.uuidString, privacy: .public) error=\(error.localizedDescription, privacy: .public)"
             )
@@ -1164,7 +1164,7 @@ class AudioRecorder: ObservableObject {
                 tapInstalled = false
             }
             guard attempt < 4 else {
-                failOngoingRecording(message: lastError ?? "Engine-Neustart fehlgeschlagen.")
+                failOngoingRecording(message: lastError ?? String(localized: "Engine restart failed."))
                 return
             }
             let recoveryID = pendingConfigRestartID
@@ -1210,7 +1210,7 @@ class AudioRecorder: ObservableObject {
             self.stateLock.unlock()
             if stalled {
                 recorderLogger.error("Recording stream stalled session=\(self.currentSessionID.uuidString, privacy: .public)")
-                self.failOngoingRecording(message: "Das Mikrofon liefert keine Audiodaten mehr. Bitte erneut aufnehmen oder ein anderes Mikrofon wählen.")
+                self.failOngoingRecording(message: String(localized: "The microphone no longer delivers audio data. Please record again or choose a different microphone."))
                 return
             }
             if now - lastLoggedAt >= 5 {
@@ -1245,7 +1245,7 @@ class AudioRecorder: ObservableObject {
             )
             return true
         } catch {
-            lastError = "Datei-Fehler: \(error.localizedDescription)"
+            lastError = String(localized: "File error: \(error.localizedDescription)")
             recorderLogger.error(
                 "Preparing recording file failed session=\(self.currentSessionID.uuidString, privacy: .public) format=\(self.recordingFormatDescription, privacy: .public) error=\(error.localizedDescription, privacy: .public)"
             )

@@ -354,17 +354,17 @@ enum SPEXTError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .invalidURL:        return "Ungültige API-URL."
-        case .audioReadFailed:   return "Audiodatei konnte nicht gelesen werden."
-        case .emptyResponse:     return "Keine Antwort von der API erhalten."
-        case .encodingFailed:    return "Anfrage konnte nicht kodiert werden."
-        case .decodingFailed:    return "Antwort konnte nicht dekodiert werden."
-        case .quotaExceeded:     return "OpenAI-Guthaben aufgebraucht."
+        case .invalidURL:        return String(localized: "Invalid API URL.")
+        case .audioReadFailed:   return String(localized: "Audio file could not be read.")
+        case .emptyResponse:     return String(localized: "No response received from the API.")
+        case .encodingFailed:    return String(localized: "Request could not be encoded.")
+        case .decodingFailed:    return String(localized: "Response could not be decoded.")
+        case .quotaExceeded:     return String(localized: "OpenAI credit used up.")
         case .polishOutputTruncated:
-            return "Die Umformulierung wurde abgeschnitten. Bitte kürzer diktieren oder erneut versuchen."
+            return String(localized: "The rewrite was cut off. Please dictate a shorter text or try again.")
         case .dictionaryOnlyTranscription:
-            return "Die Transkription bestand nur aus Wörterbuch-Wörtern. Wahrscheinlich war das Mikrofonsignal leer oder zu leise – bitte nochmal aufnehmen."
-        case .apiError(let msg): return "API-Fehler: \(msg)"
+            return String(localized: "The transcription consisted only of dictionary words. The microphone signal was probably empty or too quiet – please record again.")
+        case .apiError(let msg): return String(localized: "API error: \(msg)")
         }
     }
 }

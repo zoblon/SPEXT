@@ -3,7 +3,7 @@
 macOS menu bar app (Swift/SwiftUI, macOS 14+) for voice input via hotkey.
 Recording → OpenAI GPT Transcribe → optional GPT (rewriting) → insertion via paste.
 
-Current app version: **1.0.22** (build **22**).
+Current app version: **1.0.23** (build **23**).
 
 > **Doc sync rule:** `CLAUDE.md` and `AGENTS.md` must **always have the same content**.
 > Every change to one of the two files must also be made in the other (identical wording,
@@ -20,7 +20,7 @@ Current app version: **1.0.22** (build **22**).
 
 ## Releases
 
-Release builds are created locally and packaged as ZIP files under `Releases/<version>/`. The folder is excluded from Git via `.gitignore`; the ZIPs are attached as assets to GitHub Releases instead. Each release consists of the app ZIP, a source ZIP and a `SHA256.txt` with checksums. A loose `.app` is not distributed outside a ZIP, because extra Finder metadata can break its signature check.
+Release builds are created locally and packaged as ZIP files under `Releases/<version>/`. The folder is excluded from Git via `.gitignore`; the ZIPs are attached as assets to GitHub Releases instead. Each release consists of the app ZIP and a `SHA256.txt` with the checksum (plain file names, verify with `shasum -a 256 -c SHA256.txt`). GitHub adds the source archive for the tag automatically, so no separate source ZIP is uploaded. A loose `.app` is not distributed outside a ZIP, because extra Finder metadata can break its signature check.
 
 ## GitHub
 
@@ -30,6 +30,8 @@ The source code is hosted on GitHub (`zoblon/SPEXT`, branch `main`). To publish 
 
 ```
 SPEXTApp.swift          App entry point, MenuBarExtra + Settings scene
+Localizable.xcstrings   String catalog (English source, German translation)
+InfoPlist.xcstrings     Localized Info.plist texts (microphone usage description)
 AppState.swift            Central ObservableObject, coordinates all services
 Services/
   AudioRecorder.swift     AVAudioEngine wrapper, PCM segments + level metering + stream monitoring
@@ -45,6 +47,7 @@ Views/
   MenuBarView.swift       Popover content when clicking the menu bar icon
   RecordingHUD.swift      Floating pill (dots → waveform) while recording
   SettingsView.swift      Settings (3 tabs: General, Access, Dictionary)
+  PermissionSetupView.swift  Permission setup window (first launch / missing permissions)
 ```
 
 ## Recording lifecycle
@@ -100,7 +103,7 @@ Hotkey KeyUp
 - `isMicReady = false` → HUD shows **DotsLoadingView** (3 pulsing dots).
 - `isMicReady = true` → HUD shows **WaveformBarsView** (9 equalizer bars).
 - In the cold path, `isMicReady` is not set after `engine.start()` but, for all devices, only after the first buffer has been written with a valid format. Technical readiness is thus separate from the detected speech level.
-- After four seconds without a buffer above the speech threshold, the pill shows "Kein Sprachsignal" (no speech signal). Pauses in speech do not trigger an automatic restart. The notice disappears when the signal returns.
+- After four seconds without a buffer above the speech threshold, the pill shows "No speech signal" (German: "Kein Sprachsignal"). Pauses in speech do not trigger an automatic restart. The notice disappears when the signal returns.
 - If a dictation ends with at least four seconds of weak signal after speech has already been detected, the text is offered in the popover with a review notice and not pasted automatically.
 - In the warm path: `isMicReady = true` is set immediately in `startRecording`.
 - `RealtimeState.micReadySignaled` prevents the tap callback from setting the state more than once. The silence/hallucination guard is unchanged and still decides separately whether a recording may be uploaded.
@@ -138,8 +141,8 @@ Hotkey KeyUp
 ### GPT Transcribe integration
 - Transcription uses only the fixed model `gpt-transcribe` at the endpoint
   `/v1/audio/transcriptions`; there is no longer a model selection.
-- The settings German (`Deutsch`) and English (`Englisch`) are sent according to the current API contract as
-  `languages[]=de` or `languages[]=en`. With automatic detection (`Automatisch`), no language hint is
+- The settings German and English are sent according to the current API contract as
+  `languages[]=de` or `languages[]=en`. With automatic detection (`Automatic`), no language hint is
   sent so that detection is not restricted.
 - Dictionary entries are sent as separate `keywords[]`. Empty and case-insensitive
   duplicate entries are removed; entries containing `<`, `>`, CR or LF are not sent
@@ -155,7 +158,7 @@ Hotkey KeyUp
   existing installations are guaranteed to use the single current model.
 
 ### GPT rewriting integration
-- The "Nachricht schreiben" (write message) mode uses only the fixed model
+- The "Write message" mode (German: "Nachricht schreiben") uses only the fixed model
   `gpt-6.1-sol` via Chat Completions; there is no longer a model selection.
 - Since 1.0.22, GPT-6.1 Sol replaces the previous `gpt-5.6-terra` (GPT-6 has no Terra tier).
   This is based on the controlled comparison of 2026-10-02 (`docs/model-review-gpt6-2026-10-02.md`):
@@ -184,7 +187,7 @@ Hotkey KeyUp
   voiced ratio, which filters out isolated spikes.
 - If the check fails (key held, but nothing said), the recording is **silently
   discarded** (no upload, **no** error message, `lastError = nil`), exactly like the
-  short abort < 1 s. AppState returns to "Bereit" (ready).
+  short abort < 1 s. AppState returns to "Ready" (German: "Bereit").
 - `gpt-transcribe` does not document a reliable `no_speech_prob` signal, so the
   model-independent audio filter remains the first line of defense.
 - In addition, `TranscriptionGuard.isDictionaryOnlyResult` acts as a second line of defense
@@ -248,9 +251,22 @@ Hotkey KeyUp
   problems or HTTP errors, the request still fails (transcription: 120s; rewriting: 30s).
 - **Recording length limit:** at most 10 minutes; after that, recording stops automatically and
   is transcribed. With AAC at 64 kbps, the file stays well below the 25 MB API limit.
+- **Guillemets in English rewrites (open):** `PolishPrompt` tells the model to use only French quotes (`»Text«`), whatever the dictation language. In message mode, an English dictation can therefore contain `»…«` that the model wrote itself; `FrenchQuoteNormalizer` does not add any, but it also does not undo them. The prompt is intentionally not translated or changed with the interface localization; a language-dependent quote rule would be a separate decision.
 - **`engine.isRunning`** is checked in `teardownEngine`, but `AVAudioEngine` can end up in inconsistent internal states if a Bluetooth device is disconnected during recording.
 - **Weak AirPods signal:** a continuing, nearly silent data stream can also originate outside the app. The signal warning detects low levels but cannot reliably distinguish pauses in speech, macOS filtering and hardware problems. Hardware acceptance testing with longer spoken texts remains necessary.
 - **AirPods unmute**: event-driven via `unmuteOnDeviceChange` + `kAudioHardwarePropertyDevices`. Fires when the HFP profile disappears. 250ms extra buffer afterwards. 3s timeout fallback. Only applies when `muteOnRecord = true`. The 250ms buffer is also cancellable; before a new recording, any pending restoration is completed.
+
+## Localization (English / German)
+
+- Development language is **English**; German is the translation. The app follows the macOS system language (`knownRegions` = en, de; `developmentRegion` = en). Other system languages fall back to English.
+- All visible texts live in `SPEXT/Localizable.xcstrings`; the English source text is the key. Info.plist texts (e.g. `NSMicrophoneUsageDescription`) live in `SPEXT/InfoPlist.xcstrings`; the English value is also set in the build settings (`INFOPLIST_KEY_…`).
+- SwiftUI texts use literal keys (`Text("Ready")`, `Button("Quit")`, `.help(…)`). Helper views take `LocalizedStringKey` parameters, not `String`, otherwise the text would not be translated. Texts that are not SwiftUI literals (status line, error texts, `SPEXTError`, recorder messages, `window.title`) use `String(localized: "…")`; the status and explanation texts of the popover are collected in `AppStatusText`. Texts with values use interpolation (`%@` in the catalog), never string concatenation.
+- Texts stored in properties (e.g. `AppState.statusMessage`) are localized when they are set and compared via the `AppStatusText` constants, never via literals.
+- **Not localized:** the prompts sent to OpenAI (`PolishPrompt`, `TranscriptionPromptBuilder`) follow the **dictation language**, not the interface language. Likewise not translated: hotkey labels (`ROPT+RCMD`), model names, log output, test messages.
+- `FrenchQuoteNormalizer` turns double quotes into `»…«` (German typography) and depends on the **dictation language**, not on the interface language: only when the setting is German, or with automatic detection when `NLLanguageRecognizer` is clearly confident (≥ 0.9) that the transcript is German. English and unclear text stay unchanged.
+- Adding a text: use the English text as key in code, add the entry with its German translation to `Localizable.xcstrings` (Xcode extracts new keys automatically; without Xcode edit the JSON), keep format specifiers identical in both languages.
+- `SPEXTTests/run-guard-tests.sh` checks that catalog and code agree (`SPEXTTests/xcstrings_tool.py check`: used keys exist, no stale keys, German translation and format specifiers present) and runs the guard tests twice (interface language German and English) inside a small bundle that carries the real catalog (`-AppleLanguages "(de)"` / `"(en)"`). Text expectations in the tests therefore use `localized(de:en:)`.
+- Quick manual check of a language: `open -n SPEXT.app --args -AppleLanguages "(en)"` (or `"(de)"`).
 
 ## Permissions (entitlements)
 
@@ -259,7 +275,7 @@ Hotkey KeyUp
 - `com.apple.security.network.client` = true (API calls)
 - Input Monitoring must be granted manually in System Settings; it is required for global hotkeys (not an entitlement).
 - Accessibility must be granted manually in System Settings; it is required for automatic pasting via `⌘V` (not an entitlement).
-- On launch, SPEXT checks Input Monitoring, Accessibility and Microphone. If something is missing, a setup window with `Einträge anfordern` (request entries) appears.
+- On launch, SPEXT checks Input Monitoring, Accessibility and Microphone. If something is missing, a setup window with `Request entries` (German: `Einträge anfordern`) appears.
 - macOS TCC does not allow enabling these entries silently; SPEXT can only trigger the system prompts and open the matching settings panes.
 
 ## OpenAI model review (check regularly)
@@ -308,5 +324,5 @@ Hotkey KeyUp
 
 ## Language
 
-Code identifiers and comments are in **English**. UI strings are currently **German** and are
-being localized (German and English).
+Code identifiers and comments are in **English**. The UI is localized in **English** (development
+language) and **German** (see "Localization").

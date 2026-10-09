@@ -119,7 +119,7 @@ struct HUDView: View {
     var body: some View {
         ZStack {
             if appState.signalWarning {
-                Text("Kein Sprachsignal")
+                Text("No speech signal")
                     .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(.orange)
             } else if appState.isMicReady {

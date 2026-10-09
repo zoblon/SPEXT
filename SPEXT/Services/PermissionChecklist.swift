@@ -8,22 +8,22 @@ enum SPEXTPermission: CaseIterable, Equatable {
     var title: String {
         switch self {
         case .inputMonitoring:
-            return "Eingabeüberwachung"
+            return String(localized: "Input Monitoring")
         case .accessibility:
-            return "Bedienungshilfen"
+            return String(localized: "Accessibility")
         case .microphone:
-            return "Mikrofon"
+            return String(localized: "Microphone")
         }
     }
 
     var detail: String {
         switch self {
         case .inputMonitoring:
-            return "Erkennt die globalen Shortcuts außerhalb von SPEXT."
+            return String(localized: "Detects the global shortcuts outside SPEXT.")
         case .accessibility:
-            return "Fügt transkribierten Text automatisch per ⌘V ein."
+            return String(localized: "Pastes transcribed text automatically via ⌘V.")
         case .microphone:
-            return "Nimmt deine Sprache auf."
+            return String(localized: "Records your voice.")
         }
     }
 

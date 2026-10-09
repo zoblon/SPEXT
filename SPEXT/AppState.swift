@@ -28,7 +28,7 @@ class AppState: ObservableObject {
     @Published var currentMode:    RecordingMode = .direct
     @Published var isQuotaExceeded = false
     @Published var lastTranscription = ""
-    @Published var statusMessage   = "Bereit"
+    @Published var statusMessage   = AppStatusText.ready
     @Published var errorMessage:   String?
     @Published var audioLevel:     Float  = 0
     @Published var availableDevices: [AudioDevice] = []
@@ -78,7 +78,7 @@ class AppState: ObservableObject {
 
     @AppStorage("tt_preferAirPods")     var preferAirPods        = true
     @AppStorage("tt_microphoneUID")     var selectedMicUID      = ""
-    @AppStorage("tt_microphoneName")    var selectedMicName     = "Standard-Mikrofon"
+    @AppStorage("tt_microphoneName")    var selectedMicName     = String(localized: "Default microphone")
     @AppStorage("tt_language")          var language            = "de"
     @AppStorage("tt_muteOnRecord")      var muteOnRecord        = false
 
@@ -160,13 +160,13 @@ class AppState: ObservableObject {
     /// Uses the cache, since freshness is less critical here.
     var effectiveMicName: String {
         if preferAirPods, let airpods = allDevicesCache.first(where: { $0.isAirPods }) {
-            return "\(airpods.name) (automatisch)"
+            return String(localized: "\(airpods.name) (automatic)")
         }
         if !selectedMicUID.isEmpty,
            let device = availableDevices.first(where: { $0.id == selectedMicUID }) {
             return device.name
         }
-        return "Standard-Mikrofon"
+        return String(localized: "Default microphone")
     }
 
     private var effectiveMicDevice: AudioDevice? {
@@ -222,7 +222,7 @@ class AppState: ObservableObject {
             self.recordingOwner = nil
             self.cancelRecordingLimit()
             self.errorMessage  = message
-            self.statusMessage = "Mikrofon-Fehler"
+            self.statusMessage = AppStatusText.microphoneError
             self.isRecording   = false
             self.hudController.hide()
             self.scheduleSystemAudioRestore(afterAirPods: self.audioRecorder.recordingDeviceIsAirPods)
@@ -266,7 +266,7 @@ class AppState: ObservableObject {
         ) {
             UserDefaults.standard.removeObject(forKey: legacyKey)
         } else {
-            errorMessage = "Der API-Key konnte nicht sicher im Schlüsselbund gespeichert werden. Der bisherige Wert bleibt erhalten."
+            errorMessage = AppStatusText.keychainMigrationFailed
         }
     }
 
@@ -274,8 +274,8 @@ class AppState: ObservableObject {
         isRollingBackAPIKey = true
         apiKey = previousValue
         isRollingBackAPIKey = false
-        errorMessage = "Der API-Key konnte nicht im Schlüsselbund gespeichert werden. Der bisherige Wert bleibt erhalten."
-        statusMessage = "Schlüsselbund-Fehler"
+        errorMessage = AppStatusText.keychainSaveFailed
+        statusMessage = AppStatusText.keychainError
     }
 
     /// Migrates the briefly used side-independent defaults back
@@ -482,7 +482,7 @@ class AppState: ObservableObject {
             errorMessage = AppStatusText.hotkeysBlockedExplanation
         } else if errorMessage == AppStatusText.hotkeysBlockedExplanation {
             errorMessage = nil
-            statusMessage = "Bereit"
+            statusMessage = AppStatusText.ready
         }
     }
 
@@ -490,7 +490,7 @@ class AppState: ObservableObject {
         cancelRecordingLimit()
         let work = DispatchWorkItem { [weak self] in
             guard let self, self.isRecording else { return }
-            self.statusMessage = "Aufnahme-Limit erreicht"
+            self.statusMessage = AppStatusText.recordingLimitReached
             self.stopAndTranscribe(triggeredBy: nil)
         }
         recordingLimitWorkItem = work
@@ -514,8 +514,8 @@ class AppState: ObservableObject {
 
         guard !apiKey.isEmpty else {
             isStarting    = false
-            errorMessage  = "Bitte OpenAI API Key in den Einstellungen eingeben."
-            statusMessage = "Kein API Key"
+            errorMessage  = AppStatusText.apiKeyMissing
+            statusMessage = AppStatusText.noAPIKey
             return
         }
 
@@ -537,7 +537,7 @@ class AppState: ObservableObject {
         recordingOwner = mode
         pasteTarget = paste.captureTarget()
         isRecording   = true
-        statusMessage = mode == .direct ? "Aufnahme läuft…" : "Aufnahme (Nachricht)…"
+        statusMessage = mode == .direct ? AppStatusText.recording : AppStatusText.recordingMessage
         errorMessage  = nil
         hudController.show()
         scheduleRecordingLimit()
@@ -565,7 +565,7 @@ class AppState: ObservableObject {
                 self.isStarting = false
                 if let err = result.errorMessage {
                     self.errorMessage  = err
-                    self.statusMessage = "Aufnahme-Fehler"
+                    self.statusMessage = AppStatusText.recordingError
                     self.isRecording   = false
                     self.cancelRecordingLimit()
                     self.hudController.hide()
@@ -581,7 +581,7 @@ class AppState: ObservableObject {
         cancelRecordingLimit()
         isRecording = false
         isTranscribing = true
-        statusMessage = "Aufnahme wird vorbereitet…"
+        statusMessage = AppStatusText.preparingRecording
         hudController.hide()
         let requestKey = apiKey
         let requestLanguage = language
@@ -608,14 +608,14 @@ class AppState: ObservableObject {
                     self.isTranscribing = false
                     if let err = recordingResult.errorMessage {
                         self.errorMessage  = err
-                        self.statusMessage = "Aufnahme-Fehler"
+                        self.statusMessage = AppStatusText.recordingError
                     } else {
-                        self.statusMessage = "Bereit"
+                        self.statusMessage = AppStatusText.ready
                     }
                     return
                 }
                 self.isTranscribing  = true
-                self.statusMessage   = "Transkribiere…"
+                self.statusMessage   = AppStatusText.transcribing
 
                 self.transcription.transcribe(
                     audioURL:    url,
@@ -638,15 +638,15 @@ class AppState: ObservableObject {
                         guard !t.isEmpty else {
                             DispatchQueue.main.async {
                                 self.isTranscribing = false
-                                self.statusMessage  = "Bereit"
+                                self.statusMessage  = AppStatusText.ready
                             }
                             return
                         }
 
                         if requestMode == .direct {
-                            self.finishWithText(t)
+                            self.finishWithText(t, dictationLanguage: requestLanguage)
                         } else {
-                            DispatchQueue.main.async { self.statusMessage = "Wird umformuliert…" }
+                            DispatchQueue.main.async { self.statusMessage = AppStatusText.rewriting }
                             self.polishSvc.polish(
                                 rawText: t,
                                 apiKey:  requestKey
@@ -654,13 +654,13 @@ class AppState: ObservableObject {
                                 guard let self else { return }
                                 switch polishResult {
                                 case .success(let polished):
-                                    self.finishWithText(polished)
+                                    self.finishWithText(polished, dictationLanguage: requestLanguage)
                                 case .failure(let err):
                                     DispatchQueue.main.async {
                                         self.isTranscribing = false
-                                        self.lastTranscription = FrenchQuoteNormalizer.normalize(t)
-                                        self.errorMessage = "Umformulierung fehlgeschlagen. Das ursprüngliche Diktat steht zum Kopieren bereit. \(err.localizedDescription)"
-                                        self.statusMessage = "Diktat gesichert"
+                                        self.lastTranscription = FrenchQuoteNormalizer.normalize(t, dictationLanguage: requestLanguage)
+                                        self.errorMessage = AppStatusText.rewriteFailed(err.localizedDescription)
+                                        self.statusMessage = AppStatusText.dictationSaved
                                     }
                                 }
                             }
@@ -679,18 +679,18 @@ class AppState: ObservableObject {
 
     // MARK: - Insert Text
 
-    private func finishWithText(_ text: String) {
+    private func finishWithText(_ text: String, dictationLanguage: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.isTranscribing    = false
             self.isQuotaExceeded   = false
-            let normalizedText = FrenchQuoteNormalizer.normalize(text)
+            let normalizedText = FrenchQuoteNormalizer.normalize(text, dictationLanguage: dictationLanguage)
             self.lastTranscription = normalizedText   // store without trailing space (clean for copying)
             self.errorMessage      = nil
 
             if let warning = self.recordingWarning {
                 self.errorMessage = warning
-                self.statusMessage = "Text bitte prüfen"
+                self.statusMessage = AppStatusText.checkText
                 return
             }
 
@@ -700,9 +700,9 @@ class AppState: ObservableObject {
                     self.errorMessage = AppStatusText.pasteTargetChangedExplanation
                     self.statusMessage = AppStatusText.pasteBlocked
                 } else {
-                    self.statusMessage = "Eingefügt"
+                    self.statusMessage = AppStatusText.pasted
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        if self.statusMessage == "Eingefügt" { self.statusMessage = "Bereit" }
+                        if self.statusMessage == AppStatusText.pasted { self.statusMessage = AppStatusText.ready }
                     }
                 }
             }
@@ -756,6 +756,6 @@ class AppState: ObservableObject {
         }()
         isQuotaExceeded = isQuota
         errorMessage    = err.localizedDescription
-        statusMessage   = isQuota ? "Kein Guthaben" : "Fehler"
+        statusMessage   = isQuota ? AppStatusText.noCredit : AppStatusText.error
     }
 }

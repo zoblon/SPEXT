@@ -7,10 +7,10 @@ struct PermissionSetupView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             VStack(alignment: .leading, spacing: 6) {
-                Text("SPEXT einrichten")
+                Text("Set up SPEXT")
                     .font(.system(size: 22, weight: .semibold))
 
-                Text("SPEXT braucht diese Freigaben, damit Shortcuts, Aufnahme und automatisches Einfügen funktionieren.")
+                Text("SPEXT needs these permissions so shortcuts, recording and automatic pasting work.")
                     .font(.system(size: 13))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -27,18 +27,18 @@ struct PermissionSetupView: View {
                 }
             }
 
-            Text("macOS verlangt deine Bestätigung. SPEXT kann die Einträge anfordern und dich an die richtige Stelle führen, sie aber nicht ohne Zustimmung aktivieren.")
+            Text("macOS requires your confirmation. SPEXT can request the entries and guide you to the right place, but cannot enable them without your approval.")
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
 
             HStack {
-                Button("Später") { onClose() }
+                Button("Later") { onClose() }
                     .keyboardShortcut(.cancelAction)
 
                 Spacer()
 
-                Button("Erneut prüfen") {
+                Button("Check again") {
                     appState.checkPermissions()
                     appState.setupHotkeys()
                     if !appState.permissionChecklist.needsSetup {
@@ -46,7 +46,7 @@ struct PermissionSetupView: View {
                     }
                 }
 
-                Button("Einträge anfordern") {
+                Button("Request entries") {
                     appState.requestMissingPermissions()
                 }
                 .keyboardShortcut(.defaultAction)
@@ -92,12 +92,12 @@ private struct PermissionSetupRow: View {
             Spacer(minLength: 12)
 
             if isGranted {
-                Label("Erteilt", systemImage: "checkmark.circle.fill")
+                Label("Granted", systemImage: "checkmark.circle.fill")
                     .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(.green)
                     .labelStyle(.titleAndIcon)
             } else {
-                Button("Anfordern") { action() }
+                Button("Request") { action() }
                     .controlSize(.small)
             }
         }

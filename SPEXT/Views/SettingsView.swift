@@ -17,9 +17,9 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                TabButton(title: "Allgemein",   index: 0, selected: $selectedTab)
-                TabButton(title: "Zugang",      index: 1, selected: $selectedTab)
-                TabButton(title: "Wörterbuch",  index: 2, selected: $selectedTab)
+                TabButton(title: "General",    index: 0, selected: $selectedTab)
+                TabButton(title: "Access",     index: 1, selected: $selectedTab)
+                TabButton(title: "Dictionary", index: 2, selected: $selectedTab)
             }
             .padding(.horizontal, 20)
             .padding(.top, 18)
@@ -59,7 +59,7 @@ struct SettingsView: View {
 // MARK: - Tab Button
 
 private struct TabButton: View {
-    let title: String
+    let title: LocalizedStringKey
     let index: Int
     @Binding var selected: Int
 
@@ -90,12 +90,12 @@ private struct GeneralTab: View {
             VStack(alignment: .leading, spacing: 22) {
 
                 // MODES
-                SettingsSection(title: "MODI") {
+                SettingsSection(title: "MODES") {
                     ModeRow(
                         icon:    "waveform",
                         color:   .red,
-                        title:   "Direkte Transkription",
-                        detail:  "Sprache wird 1:1 transkribiert und sofort eingefügt.",
+                        title:   "Direct transcription",
+                        detail:  "Speech is transcribed 1:1 and inserted immediately.",
                         flags:   appState.hotkeyFlags1,
                         isCapturing: $isCapturingHotkey
                     ) { isCapturingHotkey.toggle() }
@@ -103,49 +103,49 @@ private struct GeneralTab: View {
                     ModeRow(
                         icon:    "sparkles",
                         color:   .blue,
-                        title:   "Nachricht schreiben",
-                        detail:  "Die Aufnahme wird transkribiert und anschließend als höfliche Nachricht formuliert.",
+                        title:   "Write message",
+                        detail:  "The recording is transcribed and then written as a polite message.",
                         flags:   appState.hotkeyFlags2,
                         isCapturing: $isCapturingHotkey2
                     ) { isCapturingHotkey2.toggle() }
                 }
 
                 // Language + processing
-                SettingsSection(title: "VERARBEITUNG") {
-                    LabelPickerRow("Sprache") {
+                SettingsSection(title: "PROCESSING") {
+                    LabelPickerRow("Language") {
                         Picker("", selection: $appState.language) {
-                            Text("Deutsch").tag("de")
-                            Text("Englisch").tag("en")
-                            Text("Automatisch").tag("")
+                            Text("German").tag("de")
+                            Text("English").tag("en")
+                            Text("Automatic").tag("")
                         }
                         .labelsHidden()
                         .fixedSize()
                     }
-                    LabelPickerRow("Transkription") {
-                        Text("GPT Transcribe")
+                    LabelPickerRow("Transcription") {
+                        Text(verbatim: "GPT Transcribe")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(.secondary)
                     }
-                    LabelPickerRow("Umformulierung") {
-                        Text("GPT-6.1 Sol")
+                    LabelPickerRow("Rewriting") {
+                        Text(verbatim: "GPT-6.1 Sol")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(.secondary)
                     }
-                    Text("Umformulierung wird nur für Modus 2 (Nachricht schreiben) verwendet.")
+                    Text("Rewriting is only used for mode 2 (Write message).")
                         .font(.system(size: 11))
                         .foregroundStyle(.secondary)
                 }
 
                 // Microphone
-                SettingsSection(title: "MIKROFON") {
+                SettingsSection(title: "MICROPHONE") {
                     ToggleRow(
-                        title: "AirPods automatisch verwenden",
-                        detail: "Zum Diktieren über ein anderes Mikrofon ausschalten.",
+                        title: "Use AirPods automatically",
+                        detail: "Turn off to dictate with a different microphone.",
                         isOn: $appState.preferAirPods
                     )
-                    LabelPickerRow(appState.preferAirPods ? "Fallback" : "Mikrofon") {
+                    LabelPickerRow(appState.preferAirPods ? "Fallback" : "Microphone") {
                         Picker("", selection: $appState.selectedMicUID) {
-                            Text("Standard-Mikrofon").tag("")
+                            Text("Default microphone").tag("")
                             ForEach(appState.availableDevices) { device in
                                 Text(device.name).tag(device.id)
                             }
@@ -162,13 +162,13 @@ private struct GeneralTab: View {
                             .imageScale(.small)
                             .foregroundStyle((appState.preferAirPods && appState.allDevicesCache.contains(where: { $0.isAirPods }))
                                              ? Color.accentColor : .secondary)
-                        Text("Aktiv: \(appState.effectiveMicName)")
+                        Text("Active: \(appState.effectiveMicName)")
                             .font(.system(size: 11))
                             .foregroundStyle(.secondary)
                         Spacer()
                     }
 
-                    Text("Bei ausgeschalteter Automatik gilt deine Mikrofonwahl auch mit verbundenen AirPods. So kannst du über die AirPods hören und über das Mac-Mikrofon diktieren.")
+                    Text("With the automatic selection turned off, your microphone choice also applies when AirPods are connected. This lets you listen through the AirPods and dictate through the Mac's microphone.")
                         .font(.system(size: 11))
                         .foregroundStyle(.secondary)
                 }
@@ -176,8 +176,8 @@ private struct GeneralTab: View {
                 // System
                 SettingsSection(title: "SYSTEM") {
                     ToggleRow(
-                        title:  "Bei Anmeldung starten",
-                        detail: "SPEXT startet automatisch nach jedem Neustart.",
+                        title:  "Launch at login",
+                        detail: "SPEXT starts automatically after every restart.",
                         isOn:   $launchAtLogin
                     )
                     .onChange(of: launchAtLogin) { _, enabled in
@@ -190,8 +190,8 @@ private struct GeneralTab: View {
                     }
 
                     ToggleRow(
-                        title:  "Systemton stummschalten",
-                        detail: "Musik und Töne werden während der Aufnahme pausiert.",
+                        title:  "Mute system sound",
+                        detail: "Music and sounds are paused while recording.",
                         isOn:   $appState.muteOnRecord
                     )
                 }
@@ -217,11 +217,16 @@ private struct GeneralTab: View {
 private struct ModeRow: View {
     let icon:       String
     let color:      Color
-    let title:      String
-    let detail:     String
+    let title:      LocalizedStringKey
+    let detail:     LocalizedStringKey
     let flags:      CGEventFlags
     @Binding var isCapturing: Bool
     let onChangeTap: () -> Void
+
+    /// The hotkey is a technical label (e.g. "ROPT+RCMD") and is not localized.
+    private var hotkeyLabel: Text {
+        isCapturing ? Text("Hold & release…") : Text(verbatim: HotkeyManager.label(for: flags))
+    }
 
     var body: some View {
         HStack(spacing: 12) {
@@ -242,7 +247,7 @@ private struct ModeRow: View {
 
             Spacer()
 
-            Text(isCapturing ? "Halten & loslassen…" : HotkeyManager.label(for: flags))
+            hotkeyLabel
                 .font(.system(size: 11, design: .monospaced))
                 .foregroundStyle(isCapturing ? .secondary : .primary)
                 .padding(.vertical, 3)
@@ -254,7 +259,7 @@ private struct ModeRow: View {
                         .stroke(isCapturing ? color : Color(.separatorColor), lineWidth: 1)
                 )
 
-            Button(isCapturing ? "✕" : "Ändern") { onChangeTap() }
+            Button(isCapturing ? "✕" : "Change") { onChangeTap() }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
         }
@@ -271,10 +276,10 @@ private struct ModeRow: View {
 // MARK: - Label Picker Row
 
 private struct LabelPickerRow<P: View>: View {
-    let label: String
+    let label: LocalizedStringKey
     @ViewBuilder let picker: () -> P
 
-    init(_ label: String, @ViewBuilder picker: @escaping () -> P) {
+    init(_ label: LocalizedStringKey, @ViewBuilder picker: @escaping () -> P) {
         self.label  = label
         self.picker = picker
     }
@@ -299,8 +304,8 @@ private struct LabelPickerRow<P: View>: View {
 // MARK: - Toggle Row
 
 private struct ToggleRow: View {
-    let title:  String
-    let detail: String
+    let title:  LocalizedStringKey
+    let detail: LocalizedStringKey
     @Binding var isOn: Bool
 
     var body: some View {
@@ -368,7 +373,7 @@ private struct AccessTab: View {
                                     .foregroundStyle(.tertiary)
                             }
                             .buttonStyle(.plain)
-                            .help("API Key löschen")
+                            .help("Delete API key")
                         }
 
                         // Visibility
@@ -381,18 +386,18 @@ private struct AccessTab: View {
                         .buttonStyle(.plain)
                     }
 
-                    Text("Erstelle einen API Key unter platform.openai.com → API keys. Kosten: ca. $0,0045 pro Minute Aufnahme.")
+                    Text("Create an API key at platform.openai.com → API keys. Cost: about $0.0045 per minute of recording.")
                         .font(.system(size: 11))
                         .foregroundStyle(.secondary)
                 }
 
                 // Permissions
-                SettingsSection(title: "BERECHTIGUNGEN") {
+                SettingsSection(title: "PERMISSIONS") {
                     // Input Monitoring
                     PermissionRow(
                         icon:    "keyboard",
-                        title:   "Eingabeüberwachung",
-                        detail:  "Notwendig, damit globale Hotkeys auch außerhalb von SPEXT reagieren.",
+                        title:   "Input Monitoring",
+                        detail:  "Required so global hotkeys also work outside SPEXT.",
                         granted: appState.hasInputMonitoringPermission
                     ) {
                         appState.requestInputMonitoring()
@@ -411,8 +416,8 @@ private struct AccessTab: View {
                     // Accessibility
                     PermissionRow(
                         icon:    "hand.raised",
-                        title:   "Bedienungshilfen",
-                        detail:  "Notwendig für automatisches Einfügen per ⌘V. Eingabeüberwachung reicht dafür nicht.",
+                        title:   "Accessibility",
+                        detail:  "Required for automatic pasting via ⌘V. Input Monitoring is not enough for that.",
                         granted: appState.hasAccessibilityPermission
                     ) {
                         appState.requestAccessibility()
@@ -431,8 +436,8 @@ private struct AccessTab: View {
 
                     PermissionRow(
                         icon:    "mic",
-                        title:   "Mikrofon",
-                        detail:  "Notwendig für die Sprachaufnahme.",
+                        title:   "Microphone",
+                        detail:  "Required for voice recording.",
                         granted: appState.hasMicrophonePermission
                     ) {
                         appState.requestMicrophone()
@@ -481,29 +486,29 @@ private struct InputMonitoringInstructionsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Label("Systemeinstellungen wurden geöffnet", systemImage: "arrow.up.right.square")
+            Label("System Settings was opened", systemImage: "arrow.up.right.square")
                 .font(.system(size: 12, weight: .medium))
                 .foregroundStyle(.primary)
 
             VStack(alignment: .leading, spacing: 6) {
-                StepRow(number: "1", text: "Gehe zu **Datenschutz & Sicherheit → Eingabeüberwachung**")
-                StepRow(number: "2", text: "Klicke auf **+** und füge **SPEXT** aus deinem Programme-Ordner hinzu")
-                StepRow(number: "3", text: "Aktiviere den Schalter neben **SPEXT**")
-                StepRow(number: "4", text: "**Bedienungshilfen** ist ein anderer Bereich und ersetzt diese Freigabe nicht")
-                StepRow(number: "5", text: "Starte SPEXT neu, falls macOS dich dazu auffordert")
+                StepRow(number: "1", text: "Go to **Privacy & Security → Input Monitoring**")
+                StepRow(number: "2", text: "Click **+** and add **SPEXT** from your Applications folder")
+                StepRow(number: "3", text: "Turn on the switch next to **SPEXT**")
+                StepRow(number: "4", text: "**Accessibility** is a different section and does not replace this permission")
+                StepRow(number: "5", text: "Restart SPEXT if macOS asks you to")
             }
 
             HStack {
                 Image(systemName: "arrow.clockwise")
                     .foregroundStyle(.secondary)
                     .imageScale(.small)
-                Text("Prüfe automatisch…")
+                Text("Checking automatically…")
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
 
                 Spacer()
 
-                Button("Systemeinstellungen erneut öffnen") { onReopen() }
+                Button("Reopen System Settings") { onReopen() }
                     .buttonStyle(.plain)
                     .font(.system(size: 11))
                     .foregroundStyle(Color.accentColor)
@@ -528,29 +533,29 @@ private struct AccessibilityInstructionsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Label("Systemeinstellungen wurden geöffnet", systemImage: "arrow.up.right.square")
+            Label("System Settings was opened", systemImage: "arrow.up.right.square")
                 .font(.system(size: 12, weight: .medium))
                 .foregroundStyle(.primary)
 
             VStack(alignment: .leading, spacing: 6) {
-                StepRow(number: "1", text: "Gehe zu **Datenschutz & Sicherheit → Bedienungshilfen**")
-                StepRow(number: "2", text: "Klicke auf **+** und füge **SPEXT** aus deinem Programme-Ordner hinzu")
-                StepRow(number: "3", text: "Aktiviere den Schalter neben **SPEXT**")
-                StepRow(number: "4", text: "**Eingabeüberwachung** ist ein anderer Bereich und reicht für das automatische Einfügen nicht aus")
-                StepRow(number: "5", text: "Kehre zu SPEXT zurück – der Status aktualisiert sich automatisch")
+                StepRow(number: "1", text: "Go to **Privacy & Security → Accessibility**")
+                StepRow(number: "2", text: "Click **+** and add **SPEXT** from your Applications folder")
+                StepRow(number: "3", text: "Turn on the switch next to **SPEXT**")
+                StepRow(number: "4", text: "**Input Monitoring** is a different section and is not enough for automatic pasting")
+                StepRow(number: "5", text: "Return to SPEXT – the status updates automatically")
             }
 
             HStack {
                 Image(systemName: "arrow.clockwise")
                     .foregroundStyle(.secondary)
                     .imageScale(.small)
-                Text("Prüfe automatisch…")
+                Text("Checking automatically…")
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
 
                 Spacer()
 
-                Button("Systemeinstellungen erneut öffnen") { onReopen() }
+                Button("Reopen System Settings") { onReopen() }
                     .buttonStyle(.plain)
                     .font(.system(size: 11))
                     .foregroundStyle(Color.accentColor)
@@ -591,7 +596,7 @@ private struct StepRow: View {
 // MARK: - Helper Structures
 
 private struct SettingsSection<Content: View>: View {
-    let title: String
+    let title: LocalizedStringKey
     @ViewBuilder let content: Content
 
     var body: some View {
@@ -610,8 +615,8 @@ private struct SettingsSection<Content: View>: View {
 
 private struct PermissionRow: View {
     let icon:    String
-    let title:   String
-    let detail:  String
+    let title:   LocalizedStringKey
+    let detail:  LocalizedStringKey
     let granted: Bool
     let action:  () -> Void
 
@@ -635,12 +640,12 @@ private struct PermissionRow: View {
             Spacer()
 
             if granted {
-                Label("Erteilt", systemImage: "checkmark.circle.fill")
+                Label("Granted", systemImage: "checkmark.circle.fill")
                     .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(.green)
                     .labelStyle(.titleAndIcon)
             } else {
-                Button("Erlauben") { action() }
+                Button("Allow") { action() }
                     .buttonStyle(.bordered)
                     .controlSize(.small)
                     .tint(.accentColor)
@@ -674,15 +679,15 @@ private struct DictionaryTab: View {
         VStack(alignment: .leading, spacing: 0) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 22) {
-                    SettingsSection(title: "EIGENE WÖRTER") {
-                        Text("GPT Transcribe nutzt diese Liste als Keyword-Hinweise. Ideal für Eigennamen, Fachbegriffe oder Wörter, die oft falsch erkannt werden.")
+                    SettingsSection(title: "CUSTOM WORDS") {
+                        Text("GPT Transcribe uses this list as keyword hints. Ideal for proper names, technical terms or words that are often misrecognized.")
                             .font(.system(size: 11))
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
 
                         // Word list
                         if appState.customWords.isEmpty {
-                            Text("Noch keine Wörter eingetragen.")
+                            Text("No words added yet.")
                                 .font(.system(size: 12))
                                 .foregroundStyle(.secondary)
                                 .frame(maxWidth: .infinity, alignment: .center)
@@ -736,7 +741,7 @@ private struct DictionaryTab: View {
                                                     .foregroundStyle(.secondary)
                                             }
                                             .buttonStyle(.plain)
-                                            .help("Bearbeiten")
+                                            .help("Edit")
 
                                             Button {
                                                 appState.customWords.removeAll { $0 == word }
@@ -745,7 +750,7 @@ private struct DictionaryTab: View {
                                                     .foregroundStyle(.secondary)
                                             }
                                             .buttonStyle(.plain)
-                                            .help("Entfernen")
+                                            .help("Remove")
                                         }
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 8)
@@ -762,13 +767,13 @@ private struct DictionaryTab: View {
 
                         // Add new word
                         HStack(spacing: 8) {
-                            TextField("Neues Wort oder Name…", text: $newWord)
+                            TextField("New word or name…", text: $newWord)
                                 .textFieldStyle(.roundedBorder)
                                 .font(.system(size: 12))
                                 .focused($fieldFocused)
                                 .onSubmit { addWord() }
 
-                            Button("Hinzufügen") { addWord() }
+                            Button("Add") { addWord() }
                                 .buttonStyle(.bordered)
                                 .disabled(newWord.trimmingCharacters(in: .whitespaces).isEmpty)
                         }

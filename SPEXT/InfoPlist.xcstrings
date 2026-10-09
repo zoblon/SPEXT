@@ -1,0 +1,23 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSMicrophoneUsageDescription" : {
+      "comment" : "Microphone permission prompt shown by macOS",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT benötigt Zugriff auf das Mikrofon zur Sprachaufnahme."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SPEXT needs microphone access to record your voice."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
