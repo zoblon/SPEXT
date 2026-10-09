@@ -175,6 +175,11 @@
         640
       ],
       "mode": "RGB"
+    },
+    {
+      "file": "resume-task-prompt.txt",
+      "bytes": 964,
+      "sha256": "2b80c2e681c62e850ce5441b4d3f8627b2bb134020e447e62252b42e4630de9d"
     }
   ]
 }

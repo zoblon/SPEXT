@@ -5,7 +5,7 @@ This handoff and its draft assets are being uploaded so work can continue on ano
 
 ## Resume here
 
-Read this document, then inspect [draft 2 review](../../assets/branding/drafts/spext-review-v2.png) and [wordmark draft 2](../../assets/branding/drafts/spext-logo-v2.png). Use draft 2 as the controlling reference. The next image-generation prompt is saved in [next-logo-edit-prompt.txt](../../assets/branding/drafts/next-logo-edit-prompt.txt). **It has not been executed.** Check with Tobi that he wants to resume before starting generation.
+Read this document, then inspect [draft 2 review](../../assets/branding/drafts/spext-review-v2.png) and [wordmark draft 2](../../assets/branding/drafts/spext-logo-v2.png). Use draft 2 as the controlling reference. The next image-generation prompt is saved in [next-logo-edit-prompt.txt](../../assets/branding/drafts/next-logo-edit-prompt.txt). **It has not been executed.** Wait for Tobi to ask to resume. An explicit continuation request authorizes new review drafts; do not ask him to authorize that same step again. Production integration still requires design approval.
 
 ## Brief and latest decisions
 
@@ -82,4 +82,3 @@ Repository: https://github.com/zoblon/SPEXT, main branch. On inspection the app 
 - Follow AGENTS.md. AGENTS.md and CLAUDE.md must remain equivalent if updated. App version/build must match Xcode build settings.
 - Releases: local ZIP plus SHA256.txt under ignored Releases/<version>/; publish through gh release create after version bump/tag. This handoff is not a release and does not bump the version.
 - The mandatory live OpenAI model review is for release/model/API work. It was not performed for this draft-only handoff; do it before a later release as documented.
-
