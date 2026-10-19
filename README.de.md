@@ -1,5 +1,7 @@
 # SPEXT
 
+<img src="assets/branding/spext-logo.png" alt="SPEXT" width="560">
+
 **Deutsch** | [English](README.md)
 
 SPEXT ist eine kleine macOS-Menüleisten-App zum Diktieren. Du hältst einen Hotkey, sprichst und lässt los: Deine Sprache wird von OpenAI transkribiert und in die App eingefügt, in der du gerade arbeitest. Ein zweiter Hotkey startet einen Umformulierungsmodus, der aus einem ungeordneten Diktat eine saubere, gut gegliederte Nachricht macht.
@@ -28,7 +30,7 @@ SPEXT ist eine kleine macOS-Menüleisten-App zum Diktieren. Du hältst einen Hot
 
 1. Lade das aktuelle ZIP von [GitHub Releases](https://github.com/zoblon/SPEXT/releases/latest) herunter.
 2. Entpacke es und verschiebe `SPEXT.app` in den Ordner »Programme«.
-3. Die App ist signiert, aber nicht von Apple notarisiert. macOS blockiert deshalb den ersten Start. Klicke die App mit der rechten Maustaste an und wähle »Öffnen« oder gehe zu »Systemeinstellungen > Datenschutz & Sicherheit« und klicke auf »Trotzdem öffnen«.
+3. Version 1.0.24 ist ad hoc signiert (ohne Apple-Entwicklerzertifikat) und nicht notarisiert. macOS kann den ersten Start blockieren; nach einem Update von einer entwicklersignierten Version müssen die Berechtigungen eventuell erneut erteilt werden. Öffne die App per Rechtsklick → **Öffnen** oder über **Systemeinstellungen > Datenschutz & Sicherheit > Trotzdem öffnen**.
 4. Trage in den Einstellungen deinen OpenAI-API-Key ein.
 5. Erteile die Berechtigungen, nach denen SPEXT fragt. Beim Start prüft SPEXT sie und zeigt ein Einrichtungsfenster, falls etwas fehlt:
    - **Mikrofon**: um deine Stimme aufzunehmen.
@@ -88,3 +90,8 @@ Die Idee zu SPEXT stammt von der Open-Source-App [blitztext](https://github.com/
 MIT-Lizenz, siehe [LICENSE](LICENSE).
 
 SPEXT ist ein unabhängiges Projekt und steht in keiner Verbindung zu OpenAI oder Apple. OpenAI ist eine Marke von OpenAI; macOS und AirPods sind Marken von Apple Inc.
+
+
+## Markendaten
+
+Logo, App-Icon, Menüleistensymbol, Social Preview und Quellen liegen unter [assets/branding](assets/branding).

@@ -10,10 +10,19 @@ struct SPEXTApp: App {
             MenuBarView()
                 .environmentObject(appState)
         } label: {
-            Image(systemName: appState.menuBarIcon)
-                .symbolRenderingMode(.hierarchical)
+            Image(appState.menuBarIcon)
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 18, height: 18)
                 .foregroundStyle(appState.menuBarColor)
-                .symbolEffect(.pulse, isActive: appState.isRecording || appState.isTranscribing)
+                .opacity(appState.isRecording || appState.isTranscribing ? 0.45 : 1)
+                .animation(
+                    appState.isRecording || appState.isTranscribing
+                        ? .easeInOut(duration: 0.7).repeatForever(autoreverses: true)
+                        : .default,
+                    value: appState.isRecording || appState.isTranscribing
+                )
         }
         .menuBarExtraStyle(.window)
 

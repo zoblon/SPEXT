@@ -1,0 +1,216 @@
+{
+  "approval": "Tobi accepted V10 and requested integration on 2026-10-19.",
+  "generation": "V6 generated lettering alpha; V7 bolt traced, V9 height/shear, V10 width scaling. Derived assets use native SVG placement and deterministic resizing.",
+  "palette": [
+    "#8B7CF4",
+    "#6242DE",
+    "#C9FF32"
+  ],
+  "limitations": "Raster letter silhouettes embedded in SVG; not a full-vector typeface.",
+  "assets": [
+    {
+      "path": "assets/branding/spext-app-icon.png",
+      "sha256": "6abe06cffd4fbd255b742cde42abae3bc8095f492d1cef7461fd11192d10c5b6",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "assets/branding/spext-logo.png",
+      "sha256": "a9d603e0bb561038a24b45f6ab46ada50f824fcc18477d848330e2a6dc12472d",
+      "size": [
+        2058,
+        440
+      ]
+    },
+    {
+      "path": "assets/branding/spext-logo.svg",
+      "sha256": "f52cf7ab1991f6e0819d621d51aa35a90e8a753b92f91b1c3107caa94477577d"
+    },
+    {
+      "path": "assets/branding/spext-menubar.png",
+      "sha256": "c7a96a906f09ba318e544b4b1c98031c63abcce15f68459baa69d32965e94ad9",
+      "size": [
+        18,
+        18
+      ]
+    },
+    {
+      "path": "assets/branding/spext-menubar@2x.png",
+      "sha256": "625274adefd733fe78f0b4afed157db3d24f6204c8676842bf29315a95a036e7",
+      "size": [
+        36,
+        36
+      ]
+    },
+    {
+      "path": "assets/branding/spext-menubar@3x.png",
+      "sha256": "a6c225e31d65ee66058bcb3afc191b2870175d5bf2ce8029d050bf3cc74c625b",
+      "size": [
+        54,
+        54
+      ]
+    },
+    {
+      "path": "assets/branding/spext-social-preview.png",
+      "sha256": "39662486b1b1ccd123769a39ef7dfd02df3cc55231686c0a52fcc3231e23b6ba",
+      "size": [
+        1280,
+        640
+      ]
+    },
+    {
+      "path": "assets/branding/spext-wordmark.png",
+      "sha256": "ef3dde2b60342318994638e2d5240622f50af2d795b4885c57964a4ebe9f9432",
+      "size": [
+        120,
+        26
+      ]
+    },
+    {
+      "path": "assets/branding/spext-wordmark@2x.png",
+      "sha256": "71384ed8c39869510bd377cdbb55ba18ce673e52f462ec1a2563311445c6910e",
+      "size": [
+        240,
+        51
+      ]
+    },
+    {
+      "path": "assets/branding/spext-wordmark@3x.png",
+      "sha256": "f0c331e9f1be3e669c3cdbea0c4ea41be933768e5277e3f44632a4414181aa5f",
+      "size": [
+        360,
+        77
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_128x128.png",
+      "sha256": "0f2caf2143e4e6a049e3e3ae0440eb048e64aa18e6953fa32510cef87d7822bf",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_128x128@2x.png",
+      "sha256": "dd7171daabdd784063a7413edcdfe72299ed0bcb8378854734e9d32788950fff",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_16x16.png",
+      "sha256": "aa3c2de5865ebfdc35b56fdfdc0cd43cf6d21107ac8b3dacc83d030bd6abc856",
+      "size": [
+        16,
+        16
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_16x16@2x.png",
+      "sha256": "c886228cca3db29c62f3b1e0e310935e44b05cf29ffc8576c54e42e104b9010d",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_256x256.png",
+      "sha256": "dd7171daabdd784063a7413edcdfe72299ed0bcb8378854734e9d32788950fff",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png",
+      "sha256": "3acdd26a0f6fb2b8586cb005e2dfb4f8bcb4c8d36ec6e612ca4e70920318641a",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_32x32.png",
+      "sha256": "c886228cca3db29c62f3b1e0e310935e44b05cf29ffc8576c54e42e104b9010d",
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_32x32@2x.png",
+      "sha256": "dfd5bae8ad0e2b177a88d9317d1b6fe05cad1fee1419412a9da9e293fe93caaa",
+      "size": [
+        64,
+        64
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_512x512.png",
+      "sha256": "3acdd26a0f6fb2b8586cb005e2dfb4f8bcb4c8d36ec6e612ca4e70920318641a",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_512x512@2x.png",
+      "sha256": "6abe06cffd4fbd255b742cde42abae3bc8095f492d1cef7461fd11192d10c5b6",
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/MenuBarIcon.imageset/spext-menubar.png",
+      "sha256": "c7a96a906f09ba318e544b4b1c98031c63abcce15f68459baa69d32965e94ad9",
+      "size": [
+        18,
+        18
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/MenuBarIcon.imageset/spext-menubar@2x.png",
+      "sha256": "625274adefd733fe78f0b4afed157db3d24f6204c8676842bf29315a95a036e7",
+      "size": [
+        36,
+        36
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/MenuBarIcon.imageset/spext-menubar@3x.png",
+      "sha256": "a6c225e31d65ee66058bcb3afc191b2870175d5bf2ce8029d050bf3cc74c625b",
+      "size": [
+        54,
+        54
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark.png",
+      "sha256": "ef3dde2b60342318994638e2d5240622f50af2d795b4885c57964a4ebe9f9432",
+      "size": [
+        120,
+        26
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark@2x.png",
+      "sha256": "71384ed8c39869510bd377cdbb55ba18ce673e52f462ec1a2563311445c6910e",
+      "size": [
+        240,
+        51
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark@3x.png",
+      "sha256": "f0c331e9f1be3e669c3cdbea0c4ea41be933768e5277e3f44632a4414181aa5f",
+      "size": [
+        360,
+        77
+      ]
+    }
+  ]
+}

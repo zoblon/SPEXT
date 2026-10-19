@@ -1,6 +1,6 @@
 # SPEXT brand handoff — 2026-10-09
 
-**Status: paused at Tobi's request. Design approval is pending.**
+**Historical handoff, superseded on 2026-10-19.** Tobi accepted logo draft 10 and requested app/repository integration. Current production assets and source limitations are documented in [assets/branding/README.md](../../assets/branding/README.md). The old drafts below are retained as history and are not the current design.
 This handoff and its draft assets are being uploaded so work can continue on another Mac. No new branding has been integrated into the running app, the Xcode asset catalog, release packages, or GitHub's social-preview setting.
 
 ## Resume here

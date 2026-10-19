@@ -8,9 +8,11 @@ struct MenuBarView: View {
         VStack(spacing: 0) {
             // ── Header ──────────────────────────────────────────
             HStack {
-                Text("SPEXT")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(.primary)
+                Image("SPEXTWordmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 120, height: 26)
+                    .accessibilityLabel("SPEXT")
 
                 Spacer()
 

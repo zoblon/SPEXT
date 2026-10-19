@@ -1,0 +1,28 @@
+{
+  "status": "Draft; approval pending",
+  "method": "Native horizontal scaling of V9 lightning path only. No regeneration.",
+  "letter_shapes": "Exact V6 alpha mask, old symbol removed",
+  "palette": {
+    "top": "#8B7CF4",
+    "bottom": "#6242DE",
+    "top_outline": "#7669d4",
+    "bottom_outline": "#4a32bc",
+    "bolt": "#C9FF32",
+    "bolt_outline": "#b7e72f"
+  },
+  "contour_width_px": 3.5,
+  "bolt_transform": {
+    "horizontal_scale_vs_v9": 1.25,
+    "vertical_scale_vs_v9": 1,
+    "anchor_x": 227,
+    "middle_bridge_angle_degrees": 15.40086272013037,
+    "note": "Pure horizontal scaling flattens bridge edges. No separate shear or new polygon."
+  },
+  "limits": "Letters are raster-derived alpha silhouettes embedded in SVG, not fully vector lettering or a font.",
+  "source_version": "v9",
+  "invariants": [
+    "Letter forms and colors unchanged",
+    "Bolt height and position unchanged",
+    "All contour colors and widths unchanged"
+  ]
+}

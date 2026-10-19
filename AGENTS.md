@@ -3,7 +3,7 @@
 macOS menu bar app (Swift/SwiftUI, macOS 14+) for voice input via hotkey.
 Recording → OpenAI GPT Transcribe → optional GPT (rewriting) → insertion via paste.
 
-Current app version: **1.0.23** (build **23**).
+Current app version: **1.0.24** (build **24**).
 
 > **Doc sync rule:** `CLAUDE.md` and `AGENTS.md` must **always have the same content**.
 > Every change to one of the two files must also be made in the other (identical wording,
@@ -20,11 +20,15 @@ Current app version: **1.0.23** (build **23**).
 
 ## Releases
 
-Release builds are created locally and packaged as ZIP files under `Releases/<version>/`. The folder is excluded from Git via `.gitignore`; the ZIPs are attached as assets to GitHub Releases instead. Each release consists of the app ZIP and a `SHA256.txt` with the checksum (plain file names, verify with `shasum -a 256 -c SHA256.txt`). GitHub adds the source archive for the tag automatically, so no separate source ZIP is uploaded. A loose `.app` is not distributed outside a ZIP, because extra Finder metadata can break its signature check.
+Release builds are created with Xcode locally or by the GitHub CI Release build. Download the CI artifact for local signing and verification when Xcode is unavailable. Final signed ZIP files are packaged locally under `Releases/<version>/`. The release folder is excluded from Git via `.gitignore`; the ZIPs are attached as assets to GitHub Releases instead. Each release consists of the app ZIP and a `SHA256.txt` with the checksum (plain file names, verify with `shasum -a 256 -c SHA256.txt`). GitHub adds the source archive for the tag automatically, so no separate source ZIP is uploaded. A loose `.app` is not distributed outside a ZIP, because extra Finder metadata can break its signature check.
 
 ## GitHub
 
 The source code is hosted on GitHub (`zoblon/SPEXT`, branch `main`). To publish a new release: bump the version, commit, create the tag `v<version>` (e.g. `v1.0.22`), push, and use `gh release create` to attach the ZIPs and `SHA256.txt`.
+
+## Branding
+
+Approved V10 branding (2026-10-19) lives under `assets/branding`, including sources and hashes. `scripts/export-branding.py` (Pillow) exports all app-icon sizes, `MenuBarIcon` template images, `SPEXTWordmark` images and the English social preview. Run `python3 scripts/verify-branding.py` after changes. The custom menu-bar template keeps recording/transcribing colors and an opacity pulse. See `assets/branding/README.md` for source and typography limitations.
 
 ## Architecture
 
@@ -300,27 +304,12 @@ Hotkey KeyUp
 
 ## Reference project (check regularly)
 
-- **blitztext-app** (open-source app by the YouTuber the SPEXT idea came from):
-  https://github.com/cmagnussen/blitztext-app
-- Same basic idea (macOS menu bar, hotkey → Whisper → optional GPT → paste), Swift/SwiftUI.
-- State of analysis (2026-10-02): `main` unchanged since 2026-06-02 (three commits, no release,
-  no PR merged). blitztext still uses `whisper-1` (shutdown 2027-02-26) as well as
-  `gpt-4o-mini`/`gpt-4o`. SPEXT's audio handling (AVAudioEngine, warm engine, AirPods/HFP),
-  GPT Transcribe model and network retry are considerably more mature.
-- Only open, unreviewed community PRs and forks are of interest (as of 2026-10-02):
-  #15 pause media playback instead of muting, #8 start/stop sounds, #18 input-only
-  recording via Audio Queue against `-10877` with differing input/output formats,
-  fork `mschnitzler-creator/blitztext-app-v2` with a local dictation history. None of this has
-  been adopted; the decision lies with the maintainer.
-- Additional blitztext features are **offline transcription via WhisperKit/CoreML** as well as
-  separate modes for calmer messages and emojis. Deliberately not adopted because that
-  performance pass was not meant to introduce new features.
-- **Check during future reviews** (and proactively suggest to the maintainer):
-  1. **Stability/performance:** new approaches such as a more mature WhisperKit integration, retry,
-     streaming paste, a faster pipeline.
-  2. **New features:** even though SPEXT deliberately stays lean, if blitztext gets interesting
-     features (e.g. new modes, local models, UX ideas), briefly present them to the maintainer,
-     who decides case by case whether to adopt anything.
+- **blitztext-app**, the open-source project that inspired SPEXT: https://github.com/cmagnussen/blitztext-app
+- Live source review on **2026-10-19** supersedes the 2026-10-02 note. The local-first redesign shipped in v1.11 on 2026-10-13; latest public release is v1.14 on 2026-10-18. Inspected main d8278f5 and release 0a72e2a have identical source trees. No open PRs were returned during inspection.
+- Upstream now supports local Parakeet/Whisper transcription, Apple Intelligence rewriting, optional external providers, cursor fitting, clipboard restoration, replacements, history, audio import, meetings and updates. These are upstream capabilities, not newly implemented SPEXT features.
+- [Detailed comparison and recommendations](docs/blitztext-review-2026-10-19.md), with pinned implementation links and tradeoffs. Highest-priority proposals: clipboard restoration, explicit spoken/written rules and conservative insertion fitting. Local transcription requires a separate quality/latency evaluation with representative German/English dictations.
+- Keep SPEXT's recorder/AirPods/Continuity handling, recording-quality guards, original-target paste check and existing evaluated model/prompt defaults. Do not copy upstream capture, app reactivation or history encryption-key derivation wholesale.
+- Recommendations are **not approved implementation work**. Propose relevant changes; the maintainer decides. Recheck upstream releases and meaningful PRs for future reviews.
 
 ## Language
 
