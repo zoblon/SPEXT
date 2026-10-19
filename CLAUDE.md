@@ -305,11 +305,8 @@ Hotkey KeyUp
 ## Reference project (check regularly)
 
 - **blitztext-app**, the open-source project that inspired SPEXT: https://github.com/cmagnussen/blitztext-app
-- Live source review on **2026-10-19** supersedes the 2026-10-02 note. The local-first redesign shipped in v1.11 on 2026-10-13; latest public release is v1.14 on 2026-10-18. Inspected main d8278f5 and release 0a72e2a have identical source trees. No open PRs were returned during inspection.
-- Upstream now supports local Parakeet/Whisper transcription, Apple Intelligence rewriting, optional external providers, cursor fitting, clipboard restoration, replacements, history, audio import, meetings and updates. These are upstream capabilities, not newly implemented SPEXT features.
-- [Detailed comparison and recommendations](docs/blitztext-review-2026-10-19.md), with pinned implementation links and tradeoffs. Highest-priority proposals: clipboard restoration, explicit spoken/written rules and conservative insertion fitting. Local transcription requires a separate quality/latency evaluation with representative German/English dictations.
-- Keep SPEXT's recorder/AirPods/Continuity handling, recording-quality guards, original-target paste check and existing evaluated model/prompt defaults. Do not copy upstream capture, app reactivation or history encryption-key derivation wholesale.
-- Recommendations are **not approved implementation work**. Propose relevant changes; the maintainer decides. Recheck upstream releases and meaningful PRs for future reviews.
+- Check current upstream releases and meaningful changes when the maintainer requests a review. Present recommendations to the maintainer before adopting features.
+- Comparative research and adoption recommendations stay outside this repository unless the maintainer explicitly requests their inclusion.
 
 ## Language
 
