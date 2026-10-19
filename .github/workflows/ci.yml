@@ -15,9 +15,22 @@ jobs:
       - uses: actions/checkout@v5
       - name: Show toolchain
         run: xcodebuild -version && swift --version
-      - name: Build app (unsigned)
+      - name: Verify branding exports
+        run: python3 scripts/verify-branding.py
+      - name: Build app (unsigned Release, Apple Silicon)
         run: |
-          xcodebuild -project SPEXT.xcodeproj -target SPEXT -configuration Debug \
+          xcodebuild -project SPEXT.xcodeproj -target SPEXT -configuration Release \
+            ARCHS=arm64 ONLY_ACTIVE_ARCH=NO \
+            CONFIGURATION_BUILD_DIR="$RUNNER_TEMP/SPEXT-build" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" build
       - name: Guard tests
         run: sh SPEXTTests/run-guard-tests.sh
+      - name: Package build for local signing and release verification
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent \
+            "$RUNNER_TEMP/SPEXT-build/SPEXT.app" "$RUNNER_TEMP/SPEXT-unsigned.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SPEXT-unsigned-arm64
+          path: ${{ runner.temp }}/SPEXT-unsigned.zip
+          retention-days: 7

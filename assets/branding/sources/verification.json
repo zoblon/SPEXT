@@ -1,0 +1,18 @@
+{
+  "letter_pixels_identical_to_v9": true,
+  "green_bbox_before": [
+    113,
+    142,
+    341,
+    564
+  ],
+  "green_bbox_after": [
+    85,
+    142,
+    369,
+    564
+  ],
+  "height_unchanged": true,
+  "width_scale_requested": 1.25,
+  "status": "Technical verification; user approval pending"
+}

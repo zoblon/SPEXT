@@ -122,7 +122,7 @@ class AppState: ObservableObject {
 
     // MARK: - Computed
 
-    var menuBarIcon: String { "bolt.fill" }
+    var menuBarIcon: String { "MenuBarIcon" }
 
     var menuBarColor: Color {
         if isRecording    { return currentMode == .polish ? .blue : .red }
