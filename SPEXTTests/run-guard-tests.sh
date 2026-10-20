@@ -38,6 +38,11 @@ swiftc \
   -module-cache-path "$MODULE_CACHE" \
   -o "$TEST_BINARY" \
   "$ROOT_DIR/SPEXT/Services/AppStatusText.swift" \
+  "$ROOT_DIR/SPEXT/Services/ReplacementRule.swift" \
+  "$ROOT_DIR/SPEXT/Services/InsertionFitter.swift" \
+  "$ROOT_DIR/SPEXT/Services/FocusedFieldReader.swift" \
+  "$ROOT_DIR/SPEXT/Services/ClipboardRestoreService.swift" \
+  "$ROOT_DIR/SPEXT/Services/PasteService.swift" \
   "$ROOT_DIR/SPEXT/Services/FrenchQuoteNormalizer.swift" \
   "$ROOT_DIR/SPEXT/Services/TranscriptionQuality.swift" \
   "$ROOT_DIR/SPEXT/Services/HotkeySettings.swift" \
@@ -49,6 +54,9 @@ swiftc \
   "$ROOT_DIR/SPEXT/Services/RecordingAssembler.swift" \
   "$ROOT_DIR/SPEXT/Services/AudioRecorder.swift" \
   "$ROOT_DIR/SPEXT/Services/HotkeyManager.swift" \
+  "$ROOT_DIR/SPEXTTests/ReplacementRuleTests.swift" \
+  "$ROOT_DIR/SPEXTTests/InsertionFitterTests.swift" \
+  "$ROOT_DIR/SPEXTTests/ClipboardRestoreTests.swift" \
   "$ROOT_DIR/SPEXTTests/TranscriptionGuardTests.swift"
 
 for LANGUAGE in de en; do

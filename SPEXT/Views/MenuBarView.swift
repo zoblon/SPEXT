@@ -88,6 +88,19 @@ struct MenuBarView: View {
 
                         Spacer()
 
+                        if !appState.lastOriginalTranscription.isEmpty {
+                            Button {
+                                NSPasteboard.general.clearContents()
+                                NSPasteboard.general.setString(appState.lastOriginalTranscription, forType: .string)
+                            } label: {
+                                Image(systemName: "arrow.uturn.backward")
+                                    .imageScale(.small)
+                                    .foregroundStyle(.tertiary)
+                            }
+                            .buttonStyle(.plain)
+                            .help("Copy original transcript")
+                        }
+
                         Button {
                             NSPasteboard.general.clearContents()
                             NSPasteboard.general.setString(appState.lastTranscription, forType: .string)

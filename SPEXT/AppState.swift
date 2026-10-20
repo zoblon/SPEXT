@@ -28,6 +28,7 @@ class AppState: ObservableObject {
     @Published var currentMode:    RecordingMode = .direct
     @Published var isQuotaExceeded = false
     @Published var lastTranscription = ""
+    @Published var lastOriginalTranscription = ""
     @Published var statusMessage   = AppStatusText.ready
     @Published var errorMessage:   String?
     @Published var audioLevel:     Float  = 0
@@ -46,6 +47,19 @@ class AppState: ObservableObject {
         didSet {
             if let data = try? JSONEncoder().encode(customWords) {
                 UserDefaults.standard.set(data, forKey: "tt_customWords")
+            }
+        }
+    }
+
+    /// Explicit local substitutions, independent of the speech model's keyword hints.
+    @Published var replacementRules: [ReplacementRule] = {
+        guard let data = UserDefaults.standard.data(forKey: "tt_replacementRules"),
+              let rules = try? JSONDecoder().decode([ReplacementRule].self, from: data) else { return [] }
+        return rules
+    }() {
+        didSet {
+            if let data = try? JSONEncoder().encode(replacementRules) {
+                UserDefaults.standard.set(data, forKey: "tt_replacementRules")
             }
         }
     }
@@ -586,6 +600,7 @@ class AppState: ObservableObject {
         let requestKey = apiKey
         let requestLanguage = language
         let requestWords = customWords
+        let requestRules = replacementRules
         let requestMode = currentMode
 
         let expectedSessionID = activeRecorderSessionID
@@ -643,22 +658,25 @@ class AppState: ObservableObject {
                             return
                         }
 
+                        let substituted = ReplacementRules.applying(t, rules: requestRules)
+                        let original = substituted == t ? nil : t
                         if requestMode == .direct {
-                            self.finishWithText(t, dictationLanguage: requestLanguage)
+                            self.finishWithText(substituted, dictationLanguage: requestLanguage, originalText: original)
                         } else {
                             DispatchQueue.main.async { self.statusMessage = AppStatusText.rewriting }
                             self.polishSvc.polish(
-                                rawText: t,
+                                rawText: substituted,
                                 apiKey:  requestKey
                             ) { [weak self] polishResult in
                                 guard let self else { return }
                                 switch polishResult {
                                 case .success(let polished):
-                                    self.finishWithText(polished, dictationLanguage: requestLanguage)
+                                    self.finishWithText(polished, dictationLanguage: requestLanguage, originalText: original)
                                 case .failure(let err):
                                     DispatchQueue.main.async {
                                         self.isTranscribing = false
-                                        self.lastTranscription = FrenchQuoteNormalizer.normalize(t, dictationLanguage: requestLanguage)
+                                        self.lastTranscription = FrenchQuoteNormalizer.normalize(substituted, dictationLanguage: requestLanguage)
+                                        self.lastOriginalTranscription = original ?? ""
                                         self.errorMessage = AppStatusText.rewriteFailed(err.localizedDescription)
                                         self.statusMessage = AppStatusText.dictationSaved
                                     }
@@ -679,13 +697,14 @@ class AppState: ObservableObject {
 
     // MARK: - Insert Text
 
-    private func finishWithText(_ text: String, dictationLanguage: String) {
+    private func finishWithText(_ text: String, dictationLanguage: String, originalText: String? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.isTranscribing    = false
             self.isQuotaExceeded   = false
             let normalizedText = FrenchQuoteNormalizer.normalize(text, dictationLanguage: dictationLanguage)
             self.lastTranscription = normalizedText   // store without trailing space (clean for copying)
+            self.lastOriginalTranscription = originalText ?? ""
             self.errorMessage      = nil
 
             if let warning = self.recordingWarning {
@@ -694,7 +713,7 @@ class AppState: ObservableObject {
                 return
             }
 
-            self.paste.paste(text: normalizedText + " ", target: self.pasteTarget) { [weak self] didPaste in
+            self.paste.paste(text: normalizedText, target: self.pasteTarget) { [weak self] didPaste in
                 guard let self else { return }
                 if !didPaste {
                     self.errorMessage = AppStatusText.pasteTargetChangedExplanation

@@ -39,9 +39,7 @@ enum AppStatusText {
     SPEXT copied the text to the clipboard but cannot trigger ⌘V without Accessibility access. Input Monitoring is not enough for that. Allow SPEXT in System Settings → Privacy & Security → Accessibility, or press ⌘V manually once.
     """)
 
-    static let pasteTargetChangedExplanation = String(localized: """
-    SPEXT copied the text to the clipboard but did not paste it automatically. The target window or the clipboard changed during processing, or Accessibility access is missing. Switch to the field you want and press ⌘V.
-    """)
+    static let pasteTargetChangedExplanation = String(localized: "SPEXT did not paste automatically because the target field, clipboard or Accessibility access changed. Your dictation is available above; use Copy, then paste it into the field you want.")
 
     static let hotkeysBlockedExplanation = String(localized: """
     SPEXT is not allowed to monitor global keyboard shortcuts. Allow SPEXT in System Settings → Privacy & Security → Input Monitoring. Accessibility alone is not enough for that.
