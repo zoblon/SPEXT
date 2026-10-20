@@ -21,6 +21,9 @@ private func localized<T>(de: T, en: T) -> T {
 @main
 struct TranscriptionGuardTests {
     static func main() {
+        ReplacementRuleTests.run()
+        InsertionFitterTests.run()
+        ClipboardRestoreTests.run()
         testLocalization()
         testQuoteNormalizationFollowsDictationLanguage()
         testIPhoneStartupLifecycle()

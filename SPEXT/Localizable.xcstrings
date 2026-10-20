@@ -42,6 +42,16 @@
         }
       }
     },
+    "A rule with this spoken form already exists." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für diese gesprochene Form gibt es bereits eine Regel."
+          }
+        }
+      }
+    },
     "API error: %@" : {
       "comment" : "%@ is the message returned by the API (not localized)",
       "localizations" : {
@@ -198,6 +208,16 @@
         }
       }
     },
+    "Cancel" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        }
+      }
+    },
     "Change" : {
       "comment" : "Button to change a hotkey",
       "localizations" : {
@@ -257,6 +277,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kopieren"
+          }
+        }
+      }
+    },
+    "Copy original transcript" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ursprüngliches Diktat kopieren"
           }
         }
       }
@@ -367,6 +397,16 @@
         }
       }
     },
+    "Edit replacement rule" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ersetzungsregel bearbeiten"
+          }
+        }
+      }
+    },
     "Engine restart failed." : {
       "localizations" : {
         "de" : {
@@ -395,6 +435,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Englisch"
+          }
+        }
+      }
+    },
+    "Enter a spoken form." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib eine gesprochene Form ein."
+          }
+        }
+      }
+    },
+    "Enter a written form. Replacements cannot be empty." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gib eine geschriebene Form ein. Ersetzungen dürfen nicht leer sein."
           }
         }
       }
@@ -788,6 +848,16 @@
         }
       }
     },
+    "No replacement rules added yet." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Ersetzungsregeln hinzugefügt."
+          }
+        }
+      }
+    },
     "No response received from the API." : {
       "localizations" : {
         "de" : {
@@ -956,6 +1026,16 @@
         }
       }
     },
+    "REPLACEMENT RULES" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERSETZUNGSREGELN"
+          }
+        }
+      }
+    },
     "Ready" : {
       "comment" : "Status line: idle",
       "localizations" : {
@@ -1063,12 +1143,32 @@
         }
       }
     },
+    "Remove replacement rule" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ersetzungsregel entfernen"
+          }
+        }
+      }
+    },
     "Reopen System Settings" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Systemeinstellungen erneut öffnen"
+          }
+        }
+      }
+    },
+    "Replacements apply locally after transcription, before rewriting or insertion. Whole terms match regardless of case, with flexible spaces. Rewritten messages may change the wording again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ersetzungen werden nach der Transkription lokal angewendet, bevor der Text umformuliert oder eingefügt wird. Ganze Begriffe werden unabhängig von Groß- und Kleinschreibung sowie der Anzahl der Leerzeichen erkannt. Beim Umformulieren kann sich der Wortlaut erneut ändern."
           }
         }
       }
@@ -1220,12 +1320,12 @@
         }
       }
     },
-    "SPEXT copied the text to the clipboard but did not paste it automatically. The target window or the clipboard changed during processing, or Accessibility access is missing. Switch to the field you want and press ⌘V." : {
+    "SPEXT did not paste automatically because the target field, clipboard or Accessibility access changed. Your dictation is available above; use Copy, then paste it into the field you want." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SPEXT hat den Text in die Zwischenablage kopiert, aber nicht automatisch eingefügt. Das Zielfenster oder die Zwischenablage hat sich während der Verarbeitung geändert, oder der Bedienungshilfen-Zugriff fehlt. Wechsle zum gewünschten Feld und drücke ⌘V."
+            "value" : "SPEXT hat nicht automatisch eingefügt, weil sich das Zielfeld, die Zwischenablage oder der Zugriff auf Bedienungshilfen geändert hat. Dein Diktat steht oben bereit. Kopiere es und füge es in das gewünschte Feld ein."
           }
         }
       }
@@ -1271,6 +1371,16 @@
         }
       }
     },
+    "Save" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern"
+          }
+        }
+      }
+    },
     "Set up SPEXT" : {
       "comment" : "Title of the permission setup window",
       "localizations" : {
@@ -1299,6 +1409,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sprache wird 1:1 transkribiert und sofort eingefügt."
+          }
+        }
+      }
+    },
+    "Spoken form" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesprochene Form"
           }
         }
       }
@@ -1504,6 +1624,16 @@
         }
       }
     },
+    "Use a single line for each form." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwende für jede Form nur eine Zeile."
+          }
+        }
+      }
+    },
     "With the automatic selection turned off, your microphone choice also applies when AirPods are connected. This lets you listen through the AirPods and dictate through the Mac's microphone." : {
       "localizations" : {
         "de" : {
@@ -1520,6 +1650,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nachricht schreiben"
+          }
+        }
+      }
+    },
+    "Written form" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geschriebene Form"
           }
         }
       }

@@ -19,6 +19,9 @@ SPEXT is a small macOS menu bar app for dictation. Hold a hotkey, speak, release
 - Reliable handling of AirPods and iPhone (Continuity) microphones, with optional automatic AirPods preference
 - Optionally mutes system audio while recording
 - Recordings up to 10 minutes
+- Local spoken-to-written replacement rules for exact terminology
+- Previous clipboard restored after automatic paste, without replacing newer user copies
+- Context-aware boundary spacing and punctuation in supported text fields
 
 ## Requirements
 
@@ -30,7 +33,7 @@ SPEXT is a small macOS menu bar app for dictation. Hold a hotkey, speak, release
 
 1. Download the latest ZIP from [GitHub Releases](https://github.com/zoblon/SPEXT/releases/latest).
 2. Unzip it and move `SPEXT.app` to your Applications folder.
-3. Version 1.0.24 is ad hoc signed (no Apple developer certificate) and is not notarized. macOS may block the first launch, and an update from a developer-signed version may require granting permissions again. Right-click the app and choose **Open**, or go to **System Settings > Privacy & Security** and click **Open Anyway**.
+3. Version 1.0.25 is ad hoc signed (no Apple developer certificate) and is not notarized. macOS may block the first launch, and an update from a developer-signed version may require granting permissions again. Right-click the app and choose **Open**, or go to **System Settings > Privacy & Security** and click **Open Anyway**.
 4. Enter your OpenAI API key in the settings.
 5. Grant the permissions SPEXT asks for. On launch, SPEXT checks them and shows a setup window if anything is missing:
    - **Microphone**: to record your voice.
@@ -95,3 +98,9 @@ SPEXT is an independent project and not affiliated with OpenAI or Apple. OpenAI 
 ## Brand assets
 
 The logo, app icon, menu-bar template, social preview and their sources are in [assets/branding](assets/branding).
+
+## Replacement rules and insertion
+
+In **Settings → Dictionary → Replacement rules**, add a spoken form and the written form you want. Rules run locally after recognition, before rewriting or insertion. In message mode, the model may subsequently change wording again. Matching uses whole terms, ignores case and tolerates whitespace differences. The longest overlapping term wins; replacements do not cascade. Empty or ambiguous rules are not applied. If substitutions changed a transcript, the popover also lets you copy its original recognized text.
+
+Automatic paste temporarily preserves the previous clipboard and restores it after a bounded read/quiet wait while SPEXT owns it. A newer user copy wins. The last text remains available in the popover. Supported fields supply local cursor context for spacing and isolated duplicate boundary punctuation; unavailable context keeps the previous trailing-space behavior. Field context is never sent to OpenAI. Posting Cmd+V does not independently confirm that every target app accepted the text.

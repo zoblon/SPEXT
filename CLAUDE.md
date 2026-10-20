@@ -3,7 +3,7 @@
 macOS menu bar app (Swift/SwiftUI, macOS 14+) for voice input via hotkey.
 Recording → OpenAI GPT Transcribe → optional GPT (rewriting) → insertion via paste.
 
-Current app version: **1.0.24** (build **24**).
+Current app version: **1.0.25** (build **25**).
 
 > **Doc sync rule:** `CLAUDE.md` and `AGENTS.md` must **always have the same content**.
 > Every change to one of the two files must also be made in the other (identical wording,
@@ -130,10 +130,12 @@ Hotkey KeyUp
 - If macOS disables the hotkey event tap, it is re-enabled and a key release that happened in the meantime is processed. On teardown, the run loop source and Mach port are invalidated before the callback box is released.
 - Parallel device scans carry a generation; only the most recent result may replace the cache.
 
-### Paste
-- `PasteService` remembers the target app when recording starts, writes the text to `NSPasteboard.general`, and simulates `⌘V` only if, after 80ms, the same app is still active and the pasteboard is unchanged.
-- Text is always pasted with a trailing space (`text + " "`) so typing can continue seamlessly.
-- `lastTranscription` in AppState stores the text **without** the space (clean for copying).
+### Paste and replacements
+- `PasteService` retains the original target PID and waits 80ms before Cmd+V. It checks the foreground PID, clipboard ownership and any available focused-field snapshot again immediately before posting. It never reactivates a different app. A posted shortcut is not proof of accepted field insertion.
+- `ClipboardRestoreService` backs up all clipboard items/types in memory (up to 64 MiB; otherwise automatic paste is refused without overwriting the clipboard). Restoration requires the same ticket/change count. Read requests guide a minimum 1s hold plus 0.5s quiet period; unread timeout 5s, hard limit 15s. Clipboard managers may cause reads; these are only a heuristic. New user copies win. Failed/blocked pastes retain a materialized manual fallback when possible. Consecutive owned sessions carry the original snapshot. Quit restores an owned automatic-paste snapshot. Temporary dictated clipboard contents are transient/concealed/generated and current-host-only; these markers do not guarantee clipboard-manager exclusion.
+- `FocusedFieldReader` reads at most 256 UTF16 units per side, excludes secure fields before reading, and permits AXValue fallback only for fields reporting at most 4096 units. Context stays local/in memory. `InsertionFitter` adjusts spaces and isolated duplicate punctuation only at insertion boundaries; it preserves case/newlines and keeps the previous trailing-space behavior when context is unavailable. Snapshot rechecks cannot detect same-length edits outside the bounded windows; AX offers no atomic check-and-paste operation.
+- Explicit `ReplacementRule` pairs persist under `tt_replacementRules`, independently of recognition keywords. An immutable snapshot is applied once to the recognized transcript before message rewriting or insertion. Matching is literal, case-insensitive, whitespace-tolerant, Unicode-aware and longest-first at a shared position, without cascades. Invalid/ambiguous rules are ignored. Rewriting may subsequently change wording. When substitutions changed a transcript, `lastOriginalTranscription` holds its original in memory for Copy original.
+- `lastTranscription` stores normalized text without contextual insertion padding, ready for manual copying.
 
 ### Recording format
 - During recording, temporary PCM segments (CAF) are written in the buffer format actually delivered. A format change starts a new segment without deleting earlier ones. File I/O uses its own writer lock; the main thread does not need this lock.
@@ -245,6 +247,7 @@ Hotkey KeyUp
 | `tt_hotkeyFlags1_v4` | Int | CGEventFlags.rawValue for dictation |
 | `tt_hotkeyFlags2_v4` | Int | CGEventFlags.rawValue for message |
 | `tt_customWords` | Data | JSON-encoded [String] for GPT Transcribe keywords |
+| `tt_replacementRules` | Data | JSON-encoded local spoken/written replacement rules |
 | `tt_transcribeModel` | String | Legacy key; removed on launch |
 
 ## Known limitations / open issues

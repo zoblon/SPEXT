@@ -778,6 +778,9 @@ private struct DictionaryTab: View {
                                 .disabled(newWord.trimmingCharacters(in: .whitespaces).isEmpty)
                         }
                     }
+                    SettingsSection(title: "REPLACEMENT RULES") {
+                        ReplacementRulesView(rules: $appState.replacementRules)
+                    }
                 }
                 .padding(20)
             }

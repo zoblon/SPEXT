@@ -19,6 +19,9 @@ SPEXT ist eine kleine macOS-Menüleisten-App zum Diktieren. Du hältst einen Hot
 - Zuverlässiger Umgang mit AirPods- und iPhone-Mikrofonen (Continuity), auf Wunsch mit automatischem Vorrang für AirPods
 - Optional Stummschalten des Systemtons während der Aufnahme
 - Aufnahmen bis 10 Minuten
+- Lokale Ersetzungsregeln für feste Schreibweisen, etwa »n acht n« → »n8n«
+- Wiederherstellung der bisherigen Zwischenablage nach automatischem Einfügen
+- Passende Leerzeichen und Satzzeichen an der Einfügestelle, soweit das Textfeld Zugriff erlaubt
 
 ## Voraussetzungen
 
@@ -30,7 +33,7 @@ SPEXT ist eine kleine macOS-Menüleisten-App zum Diktieren. Du hältst einen Hot
 
 1. Lade das aktuelle ZIP von [GitHub Releases](https://github.com/zoblon/SPEXT/releases/latest) herunter.
 2. Entpacke es und verschiebe `SPEXT.app` in den Ordner »Programme«.
-3. Version 1.0.24 ist ad hoc signiert (ohne Apple-Entwicklerzertifikat) und nicht notarisiert. macOS kann den ersten Start blockieren; nach einem Update von einer entwicklersignierten Version müssen die Berechtigungen eventuell erneut erteilt werden. Öffne die App per Rechtsklick → **Öffnen** oder über **Systemeinstellungen > Datenschutz & Sicherheit > Trotzdem öffnen**.
+3. Version 1.0.25 ist ad hoc signiert (ohne Apple-Entwicklerzertifikat) und nicht notarisiert. macOS kann den ersten Start blockieren; nach einem Update von einer entwicklersignierten Version müssen die Berechtigungen eventuell erneut erteilt werden. Öffne die App per Rechtsklick → **Öffnen** oder über **Systemeinstellungen > Datenschutz & Sicherheit > Trotzdem öffnen**.
 4. Trage in den Einstellungen deinen OpenAI-API-Key ein.
 5. Erteile die Berechtigungen, nach denen SPEXT fragt. Beim Start prüft SPEXT sie und zeigt ein Einrichtungsfenster, falls etwas fehlt:
    - **Mikrofon**: um deine Stimme aufzunehmen.
@@ -95,3 +98,9 @@ SPEXT ist ein unabhängiges Projekt und steht in keiner Verbindung zu OpenAI ode
 ## Markendaten
 
 Logo, App-Icon, Menüleistensymbol, Social Preview und Quellen liegen unter [assets/branding](assets/branding).
+
+## Ersetzungsregeln und Einfügen
+
+Unter **Einstellungen → Wörterbuch → Ersetzungsregeln** legst du eine gesprochene und eine geschriebene Form an. Die Regeln greifen lokal nach der Erkennung, vor dem Umschreiben oder Einfügen. Im Nachrichtenmodus kann das Modell die Formulierung danach noch verändern. Regeln ersetzen ganze Begriffe unabhängig von Groß-/Kleinschreibung und tolerieren unterschiedliche Leerzeichen. Überlappende Treffer verwenden zuerst den längsten Begriff; Ersetzungen lösen keine weiteren Regeln aus. Leere oder doppeldeutige Regeln werden nicht angewendet. Hat eine Regel den Text verändert, kannst du im Popover auch das ursprüngliche Diktat kopieren.
+
+Beim automatischen Einfügen stellt SPEXT die vorherige Zwischenablage nach einer begrenzten Wartezeit wieder her, solange du nichts Neues kopiert hast. Der letzte Text bleibt im Popover verfügbar. Leerzeichen und einzelne doppelte Satzzeichen an den Einfügegrenzen werden anhand des lokalen Textfelds angepasst. Unterstützt ein Feld den Zugriff nicht, gilt der bisherige Abstand am Textende. Feldkontext bleibt auf deinem Mac. Ein ausgelöstes ⌘V bestätigt technisch nicht, dass jede Ziel-App den Text angenommen hat.
