@@ -33,7 +33,7 @@ SPEXT is a small macOS menu bar app for dictation. Hold a hotkey, speak, release
 
 1. Download the latest ZIP from [GitHub Releases](https://github.com/zoblon/SPEXT/releases/latest).
 2. Unzip it and move `SPEXT.app` to your Applications folder.
-3. Version 1.0.25 is ad hoc signed (no Apple developer certificate) and is not notarized. macOS may block the first launch, and an update from a developer-signed version may require granting permissions again. Right-click the app and choose **Open**, or go to **System Settings > Privacy & Security** and click **Open Anyway**.
+3. Version 1.0.26 is ad hoc signed (no Apple developer certificate) and is not notarized. macOS may block the first launch, and an update from a developer-signed version may require granting permissions again. Right-click the app and choose **Open**, or go to **System Settings > Privacy & Security** and click **Open Anyway**.
 4. Enter your OpenAI API key in the settings.
 5. Grant the permissions SPEXT asks for. On launch, SPEXT checks them and shows a setup window if anything is missing:
    - **Microphone**: to record your voice.

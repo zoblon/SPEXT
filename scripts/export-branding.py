@@ -82,6 +82,6 @@ for folder in (BRAND,CATALOG/'AppIcon.appiconset',CATALOG/'MenuBarIcon.imageset'
             record={'path':path.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
             if path.suffix=='.png':record['size']=list(Image.open(path).size)
             records.append(record)
-manifest={'approval':'V10 geometry accepted 2026-10-19; quieter blue-violet palette requested 2026-10-20.','generation':'V6 generated lettering alpha; V7 bolt traced, V9 height/shear, V10 width scaling. Derived assets use native SVG placement and deterministic resizing.','palette':['#8B7CF4','#555AB6','#C9FF32'],'limitations':'Raster letter silhouettes embedded in SVG; not a full-vector typeface.','assets':records}
+manifest={'approval':'V10 geometry accepted 2026-10-19; V11 blue-violet palette and quieter application design accepted by Tobi on 2026-10-20.','generation':'V6 generated lettering alpha; V7 bolt traced, V9 height/shear, V10 width scaling. V11 changes colors only. Derived assets use native SVG placement and deterministic resizing.','palette':['#696BC8','#555AB6','#C9EF67','#F5F3EE'],'darkWordmarkPalette':['#A4A8ED','#8E94E0','#C9EF67'],'limitations':'Raster letter silhouettes embedded in SVG; not a full-vector typeface.','assets':records}
 (BRAND/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print(f'Exported and hashed {len(records)} production assets.')
