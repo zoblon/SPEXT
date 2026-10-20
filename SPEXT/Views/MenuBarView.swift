@@ -27,7 +27,7 @@ struct MenuBarView: View {
                 .buttonStyle(.plain)
                 .help("Settings")
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 22)
             .padding(.top, 14)
             .padding(.bottom, 10)
 
@@ -38,18 +38,7 @@ struct MenuBarView: View {
                 Circle()
                     .fill(appState.statusColor)
                     .frame(width: 8, height: 8)
-                    .overlay(
-                        Circle()
-                            .stroke(appState.statusColor.opacity(0.4), lineWidth: 3)
-                            .scaleEffect(appState.isRecording ? 2.0 : 1.0)
-                            .opacity(appState.isRecording ? 0 : 1)
-                            .animation(
-                                appState.isRecording
-                                    ? .easeOut(duration: 0.9).repeatForever(autoreverses: false)
-                                    : .default,
-                                value: appState.isRecording
-                            )
-                    )
+
 
                 Text(appState.statusMessage)
                     .font(.system(size: 12))
@@ -73,8 +62,8 @@ struct MenuBarView: View {
             }
             .animation(.easeInOut(duration: 0.2), value: appState.isRecording)
             .animation(.easeInOut(duration: 0.2), value: appState.isTranscribing)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 22)
+            .padding(.vertical, 14)
 
             // ── Last Transcription ────────────────────────────────
             if !appState.lastTranscription.isEmpty {
@@ -112,17 +101,18 @@ struct MenuBarView: View {
                         .buttonStyle(.plain)
                         .help("Copy")
                     }
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 22)
                     .padding(.top, 10)
 
                     Text(appState.lastTranscription)
-                        .font(.system(size: 12))
+                        .font(.system(size: 15, design: .serif))
+                        .lineSpacing(4)
                         .foregroundStyle(.primary)
                         .lineLimit(3)
                         .truncationMode(.tail)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal, 22)
                         .padding(.bottom, 10)
                         .textSelection(.enabled)
                 }
@@ -151,10 +141,10 @@ struct MenuBarView: View {
                     }
                     .buttonStyle(.plain)
                     .font(.system(size: 11, weight: .medium))
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(SPEXTTheme.accent)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
+                .padding(.horizontal, 22)
+                .padding(.vertical, 14)
                 .background(Color.orange.opacity(0.08))
             }
 
@@ -197,8 +187,8 @@ struct MenuBarView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
+                .padding(.horizontal, 22)
+                .padding(.vertical, 14)
             }
 
             Divider()
@@ -207,19 +197,19 @@ struct MenuBarView: View {
             VStack(spacing: 6) {
                 HotkeyHintRow(
                     icon:    "waveform",
-                    color:   .red,
+                    color:   SPEXTTheme.accent,
                     label:   "Dictate",
                     keyName: HotkeyManager.label(for: appState.hotkeyFlags1)
                 )
                 HotkeyHintRow(
                     icon:    "sparkles",
-                    color:   .blue,
+                    color:   SPEXTTheme.accent,
                     label:   "Message",
                     keyName: HotkeyManager.label(for: appState.hotkeyFlags2)
                 )
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 22)
+            .padding(.vertical, 14)
 
             Divider()
 
@@ -234,12 +224,13 @@ struct MenuBarView: View {
 
                 Spacer()
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 22)
+            .padding(.vertical, 14)
         }
-        .frame(width: 320)
-        .background(.regularMaterial)
-        .onAppear { appState.checkPermissions() }
+        .frame(width: 344)
+        .background(SPEXTTheme.canvas)
+        .tint(SPEXTTheme.accent)
+        .onAppear { appState.refreshPermissionsAndHotkeys() }
     }
 
 }
@@ -268,12 +259,12 @@ private struct HotkeyHintRow: View {
 
             Text(keyName)
                 .font(.system(size: 11, design: .monospaced))
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.85)
                 .padding(.vertical, 2)
                 .padding(.horizontal, 6)
-                .background(Color(.controlBackgroundColor))
+                .background(SPEXTTheme.surface)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
         }
     }

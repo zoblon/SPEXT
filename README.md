@@ -104,3 +104,7 @@ The logo, app icon, menu-bar template, social preview and their sources are in [
 In **Settings → Dictionary → Replacement rules**, add a spoken form and the written form you want. Rules run locally after recognition, before rewriting or insertion. In message mode, the model may subsequently change wording again. Matching uses whole terms, ignores case and tolerates whitespace differences. The longest overlapping term wins; replacements do not cascade. Empty or ambiguous rules are not applied. If substitutions changed a transcript, the popover also lets you copy its original recognized text.
 
 Automatic paste temporarily preserves the previous clipboard and restores it after a bounded read/quiet wait while SPEXT owns it. A newer user copy wins. The last text remains available in the popover. Supported fields supply local cursor context for spacing and isolated duplicate boundary punctuation; unavailable context keeps the previous trailing-space behavior. Field context is never sent to OpenAI. Posting Cmd+V does not independently confirm that every target app accepted the text.
+
+### Permission troubleshooting
+
+If macOS shows SPEXT enabled but the app still reports missing access, open the recovery guide in setup or Settings → Access. It displays the running app’s version and location. Keep one copy in Applications, remove stale SPEXT entries from Input Monitoring and Accessibility, add that same copy again and restart it. The app never changes grants on your behalf. Ad-hoc signed builds can require renewed consent after updates.

@@ -140,10 +140,9 @@ struct HUDView: View {
         .padding(.horizontal, 14)
         .frame(width: 144, height: 36)
         .background {
-            // System material: adapts automatically to Light/Dark, light vibrancy blur.
-            // Feels Apple-like and is visible on any background color.
+            // Shared opaque neutral surface adapts to the system appearance.
             Capsule()
-                .fill(.regularMaterial)
+                .fill(SPEXTTheme.canvas)
                 .overlay(
                     Capsule().strokeBorder(strokeColor, lineWidth: 0.5)
                 )

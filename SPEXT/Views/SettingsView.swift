@@ -21,12 +21,12 @@ struct SettingsView: View {
                 TabButton(title: "Access",     index: 1, selected: $selectedTab)
                 TabButton(title: "Dictionary", index: 2, selected: $selectedTab)
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 28)
             .padding(.top, 18)
             .padding(.bottom, 14)
 
             Divider()
-                .onAppear { appState.checkPermissions() }
+                .onAppear { appState.refreshPermissionsAndHotkeys() }
 
             Group {
                 if selectedTab == 0 {
@@ -51,8 +51,9 @@ struct SettingsView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.vertical, 8)
         }
-        .frame(width: 460, height: 490)
-        .background(.regularMaterial)
+        .frame(width: 540, height: 590)
+        .background(SPEXTTheme.canvas)
+        .tint(SPEXTTheme.accent)
     }
 }
 
@@ -67,12 +68,12 @@ private struct TabButton: View {
         Button(title) { selected = index }
             .buttonStyle(.plain)
             .font(.system(size: 13, weight: selected == index ? .semibold : .regular))
-            .foregroundStyle(selected == index ? .primary : .secondary)
-            .padding(.vertical, 6)
-            .padding(.horizontal, 14)
+            .foregroundStyle(selected == index ? SPEXTTheme.accent : .secondary)
+            .padding(.vertical, 9)
+            .padding(.horizontal, 18)
             .background(
-                Capsule()
-                    .fill(selected == index ? Color.accentColor.opacity(0.15) : Color.clear)
+                RoundedRectangle(cornerRadius: 7)
+                    .fill(selected == index ? SPEXTTheme.surface : Color.clear)
             )
     }
 }
@@ -90,10 +91,10 @@ private struct GeneralTab: View {
             VStack(alignment: .leading, spacing: 22) {
 
                 // MODES
-                SettingsSection(title: "MODES") {
+                SettingsSection(title: "Modes") {
                     ModeRow(
                         icon:    "waveform",
-                        color:   .red,
+                        color:   SPEXTTheme.accent,
                         title:   "Direct transcription",
                         detail:  "Speech is transcribed 1:1 and inserted immediately.",
                         flags:   appState.hotkeyFlags1,
@@ -102,7 +103,7 @@ private struct GeneralTab: View {
 
                     ModeRow(
                         icon:    "sparkles",
-                        color:   .blue,
+                        color:   SPEXTTheme.accent,
                         title:   "Write message",
                         detail:  "The recording is transcribed and then written as a polite message.",
                         flags:   appState.hotkeyFlags2,
@@ -111,7 +112,7 @@ private struct GeneralTab: View {
                 }
 
                 // Language + processing
-                SettingsSection(title: "PROCESSING") {
+                SettingsSection(title: "Processing") {
                     LabelPickerRow("Language") {
                         Picker("", selection: $appState.language) {
                             Text("German").tag("de")
@@ -137,7 +138,7 @@ private struct GeneralTab: View {
                 }
 
                 // Microphone
-                SettingsSection(title: "MICROPHONE") {
+                SettingsSection(title: "Microphone") {
                     ToggleRow(
                         title: "Use AirPods automatically",
                         detail: "Turn off to dictate with a different microphone.",
@@ -161,7 +162,7 @@ private struct GeneralTab: View {
                               ? "airpodspro" : "mic")
                             .imageScale(.small)
                             .foregroundStyle((appState.preferAirPods && appState.allDevicesCache.contains(where: { $0.isAirPods }))
-                                             ? Color.accentColor : .secondary)
+                                             ? SPEXTTheme.accent : .secondary)
                         Text("Active: \(appState.effectiveMicName)")
                             .font(.system(size: 11))
                             .foregroundStyle(.secondary)
@@ -174,7 +175,7 @@ private struct GeneralTab: View {
                 }
 
                 // System
-                SettingsSection(title: "SYSTEM") {
+                SettingsSection(title: "System") {
                     ToggleRow(
                         title:  "Launch at login",
                         detail: "SPEXT starts automatically after every restart.",
@@ -196,7 +197,7 @@ private struct GeneralTab: View {
                     )
                 }
             }
-            .padding(20)
+            .padding(28)
         }
         // Modifier combination capture for hotkey 1 and 2
         .background(FlagCaptureView(isCapturing: $isCapturingHotkey) { flags in
@@ -252,7 +253,7 @@ private struct ModeRow: View {
                 .foregroundStyle(isCapturing ? .secondary : .primary)
                 .padding(.vertical, 3)
                 .padding(.horizontal, 8)
-                .background(Color(.controlBackgroundColor))
+                .background(SPEXTTheme.surface)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
@@ -264,7 +265,7 @@ private struct ModeRow: View {
                 .controlSize(.small)
         }
         .padding(12)
-        .background(Color(.controlBackgroundColor).opacity(0.6))
+        .background(SPEXTTheme.surface.opacity(0.6))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
@@ -292,7 +293,7 @@ private struct LabelPickerRow<P: View>: View {
             picker()
         }
         .padding(12)
-        .background(Color(.controlBackgroundColor).opacity(0.6))
+        .background(SPEXTTheme.surface.opacity(0.6))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
@@ -319,7 +320,7 @@ private struct ToggleRow: View {
             Toggle("", isOn: $isOn).labelsHidden().toggleStyle(.switch)
         }
         .padding(12)
-        .background(Color(.controlBackgroundColor).opacity(0.6))
+        .background(SPEXTTheme.surface.opacity(0.6))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
@@ -346,7 +347,7 @@ private struct AccessTab: View {
             VStack(alignment: .leading, spacing: 22) {
 
                 // API Key
-                SettingsSection(title: "OPENAI API KEY") {
+                SettingsSection(title: "OpenAI API key") {
                     HStack(spacing: 6) {
                         // Binding that automatically strips spaces and line breaks
                         let sanitized = Binding(
@@ -392,7 +393,7 @@ private struct AccessTab: View {
                 }
 
                 // Permissions
-                SettingsSection(title: "PERMISSIONS") {
+                SettingsSection(title: "Permissions") {
                     // Input Monitoring
                     PermissionRow(
                         icon:    "keyboard",
@@ -442,9 +443,11 @@ private struct AccessTab: View {
                     ) {
                         appState.requestMicrophone()
                     }
+
+                    PermissionRecoveryView()
                 }
             }
-            .padding(20)
+            .padding(28)
             .animation(.easeInOut(duration: 0.2), value: showAccessibilitySteps)
             .animation(.easeInOut(duration: 0.2), value: showInputMonitoringSteps)
             .animation(.easeInOut(duration: 0.2), value: appState.hasAccessibilityPermission)
@@ -469,7 +472,7 @@ private struct AccessTab: View {
     private func startPolling() {
         stopPolling()
         pollTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
-            appState.checkPermissions()
+            appState.refreshPermissionsAndHotkeys()
         }
     }
 
@@ -511,16 +514,16 @@ private struct InputMonitoringInstructionsView: View {
                 Button("Reopen System Settings") { onReopen() }
                     .buttonStyle(.plain)
                     .font(.system(size: 11))
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(SPEXTTheme.accent)
             }
         }
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color.accentColor.opacity(0.07))
+                .fill(SPEXTTheme.accent.opacity(0.07))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.accentColor.opacity(0.25), lineWidth: 1)
+                        .stroke(SPEXTTheme.accent.opacity(0.25), lineWidth: 1)
                 )
         )
     }
@@ -558,16 +561,16 @@ private struct AccessibilityInstructionsView: View {
                 Button("Reopen System Settings") { onReopen() }
                     .buttonStyle(.plain)
                     .font(.system(size: 11))
-                    .foregroundStyle(Color.accentColor)
+                    .foregroundStyle(SPEXTTheme.accent)
             }
         }
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color.accentColor.opacity(0.07))
+                .fill(SPEXTTheme.accent.opacity(0.07))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.accentColor.opacity(0.25), lineWidth: 1)
+                        .stroke(SPEXTTheme.accent.opacity(0.25), lineWidth: 1)
                 )
         )
     }
@@ -583,7 +586,7 @@ private struct StepRow: View {
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(.white)
                 .frame(width: 16, height: 16)
-                .background(Circle().fill(Color.accentColor))
+                .background(Circle().fill(SPEXTTheme.accent))
 
             Text(text)
                 .font(.system(size: 11))
@@ -602,9 +605,8 @@ private struct SettingsSection<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.system(size: 10, weight: .bold))
-                .foregroundStyle(.tertiary)
-                .kerning(0.8)
+                .font(.system(size: 15, weight: .medium, design: .serif))
+                .foregroundStyle(.primary)
 
             VStack(alignment: .leading, spacing: 8) {
                 content
@@ -623,7 +625,7 @@ private struct PermissionRow: View {
     var body: some View {
         HStack(spacing: 12) {
             RoundedRectangle(cornerRadius: 7)
-                .fill(granted ? Color.green.opacity(0.12) : Color(.controlBackgroundColor))
+                .fill(granted ? Color.green.opacity(0.12) : SPEXTTheme.surface)
                 .frame(width: 32, height: 32)
                 .overlay(
                     Image(systemName: icon)
@@ -648,16 +650,16 @@ private struct PermissionRow: View {
                 Button("Allow") { action() }
                     .buttonStyle(.bordered)
                     .controlSize(.small)
-                    .tint(.accentColor)
+                    .tint(SPEXTTheme.accent)
             }
         }
         .padding(12)
-        .background(granted ? Color.green.opacity(0.05) : Color(.controlBackgroundColor).opacity(0.6))
+        .background(SPEXTTheme.surface)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(
-                    granted ? Color.green.opacity(0.25) : Color(.separatorColor).opacity(0.5),
+                    SPEXTTheme.rule,
                     lineWidth: 0.5
                 )
         )
@@ -679,7 +681,7 @@ private struct DictionaryTab: View {
         VStack(alignment: .leading, spacing: 0) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 22) {
-                    SettingsSection(title: "CUSTOM WORDS") {
+                    SettingsSection(title: "Custom words") {
                         Text("GPT Transcribe uses this list as keyword hints. Ideal for proper names, technical terms or words that are often misrecognized.")
                             .font(.system(size: 11))
                             .foregroundStyle(.secondary)
@@ -719,11 +721,11 @@ private struct DictionaryTab: View {
                                         }
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
-                                        .background(Color.accentColor.opacity(0.07))
+                                        .background(SPEXTTheme.accent.opacity(0.07))
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.accentColor.opacity(0.35), lineWidth: 1)
+                                                .stroke(SPEXTTheme.accent.opacity(0.35), lineWidth: 1)
                                         )
                                         .onAppear { editFocused = true }
                                     } else {
@@ -754,7 +756,7 @@ private struct DictionaryTab: View {
                                         }
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 8)
-                                        .background(Color(.controlBackgroundColor).opacity(0.6))
+                                        .background(SPEXTTheme.surface.opacity(0.6))
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8)
@@ -778,11 +780,11 @@ private struct DictionaryTab: View {
                                 .disabled(newWord.trimmingCharacters(in: .whitespaces).isEmpty)
                         }
                     }
-                    SettingsSection(title: "REPLACEMENT RULES") {
+                    SettingsSection(title: "Replacement rules") {
                         ReplacementRulesView(rules: $appState.replacementRules)
                     }
                 }
-                .padding(20)
+                .padding(28)
             }
         }
     }

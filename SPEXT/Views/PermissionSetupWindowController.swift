@@ -25,7 +25,7 @@ final class PermissionSetupWindowController {
 
         let hostingView = NSHostingView(rootView: rootView)
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 520, height: 420),
+            contentRect: NSRect(x: 0, y: 0, width: 580, height: 540),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false

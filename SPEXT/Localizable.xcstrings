@@ -32,6 +32,36 @@
         }
       }
     },
+    "1. Keep the copy you want to use in Applications. If you move this app, quit and reopen it from Applications first." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Lege die gewünschte Kopie unter »Programme« ab. Wenn du diese App verschiebst, beende sie und öffne sie zuerst erneut aus »Programme«."
+          }
+        }
+      }
+    },
+    "2. In Input Monitoring and Accessibility, remove the SPEXT entry with −. Use + to add the running app shown here, then enable it in both sections." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Entferne den SPEXT-Eintrag unter »Eingabeüberwachung« und »Bedienungshilfen« mit −. Füge über + die hier angezeigte laufende App hinzu und aktiviere sie in beiden Bereichen."
+          }
+        }
+      }
+    },
+    "3. Quit SPEXT completely and reopen that same copy. Then check the permissions again." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Beende SPEXT vollständig und öffne dieselbe Kopie erneut. Prüfe dann die Freigaben noch einmal."
+          }
+        }
+      }
+    },
     "A recording is already in progress." : {
       "localizations" : {
         "de" : {
@@ -116,6 +146,26 @@
         }
       }
     },
+    "Already enabled in System Settings?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In den Systemeinstellungen schon aktiviert?"
+          }
+        }
+      }
+    },
+    "An enabled switch can belong to another copy or an earlier build of SPEXT. The checks above show the access macOS reports for this running app." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein aktivierter Schalter kann zu einer anderen Kopie oder einer früheren Version von SPEXT gehören. Die Prüfung oben zeigt, welchen Zugriff macOS für diese laufende App meldet."
+          }
+        }
+      }
+    },
     "Audio buffer could not be allocated." : {
       "localizations" : {
         "de" : {
@@ -193,17 +243,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Automatisch"
-          }
-        }
-      }
-    },
-    "CUSTOM WORDS" : {
-      "comment" : "Section header (uppercase)",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "EIGENE WÖRTER"
           }
         }
       }
@@ -297,6 +336,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erstelle einen API Key unter platform.openai.com → API keys. Kosten: ca. $0,0045 pro Minute Aufnahme."
+          }
+        }
+      }
+    },
+    "Custom words" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigene Wörter"
           }
         }
       }
@@ -661,28 +711,6 @@
         }
       }
     },
-    "MICROPHONE" : {
-      "comment" : "Section header (uppercase)",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MIKROFON"
-          }
-        }
-      }
-    },
-    "MODES" : {
-      "comment" : "Section header (uppercase)",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MODI"
-          }
-        }
-      }
-    },
     "Message" : {
       "comment" : "Name of the message mode (badge and hotkey hint in the popover)",
       "localizations" : {
@@ -795,6 +823,17 @@
         }
       }
     },
+    "Modes" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modi"
+          }
+        }
+      }
+    },
     "Music and sounds are paused while recording." : {
       "localizations" : {
         "de" : {
@@ -889,17 +928,6 @@
         }
       }
     },
-    "OPENAI API KEY" : {
-      "comment" : "Section header (uppercase)",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OPENAI API KEY"
-          }
-        }
-      }
-    },
     "Open Accessibility" : {
       "localizations" : {
         "de" : {
@@ -916,6 +944,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eingabeüberwachung öffnen"
+          }
+        }
+      }
+    },
+    "OpenAI API key" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAI-API-Schlüssel"
           }
         }
       }
@@ -937,28 +976,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OpenAI-Guthaben aufgebraucht."
-          }
-        }
-      }
-    },
-    "PERMISSIONS" : {
-      "comment" : "Section header (uppercase)",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "BERECHTIGUNGEN"
-          }
-        }
-      }
-    },
-    "PROCESSING" : {
-      "comment" : "Section header (uppercase)",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "VERARBEITUNG"
           }
         }
       }
@@ -995,6 +1012,17 @@
         }
       }
     },
+    "Permissions" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berechtigungen"
+          }
+        }
+      }
+    },
     "Please enter your OpenAI API key in the settings." : {
       "localizations" : {
         "de" : {
@@ -1016,22 +1044,23 @@
         }
       }
     },
+    "Processing" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verarbeitung"
+          }
+        }
+      }
+    },
     "Quit" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beenden"
-          }
-        }
-      }
-    },
-    "REPLACEMENT RULES" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ERSETZUNGSREGELN"
           }
         }
       }
@@ -1159,6 +1188,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Systemeinstellungen erneut öffnen"
+          }
+        }
+      }
+    },
+    "Replacement rules" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ersetzungen"
           }
         }
       }
@@ -1307,6 +1346,16 @@
         }
       }
     },
+    "Running copy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laufende Kopie"
+          }
+        }
+      }
+    },
     "SPEXT" : {
       "shouldTranslate" : false
     },
@@ -1360,17 +1409,6 @@
         }
       }
     },
-    "SYSTEM" : {
-      "comment" : "Section header (uppercase)",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SYSTEM"
-          }
-        }
-      }
-    },
     "Save" : {
       "localizations" : {
         "de" : {
@@ -1403,6 +1441,16 @@
         }
       }
     },
+    "Show this app in Finder" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App im Finder zeigen"
+          }
+        }
+      }
+    },
     "Speech is transcribed 1:1 and inserted immediately." : {
       "localizations" : {
         "de" : {
@@ -1419,6 +1467,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gesprochene Form"
+          }
+        }
+      }
+    },
+    "System" : {
+      "comment" : "Section header (uppercase)",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
           }
         }
       }
@@ -1630,6 +1689,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verwende für jede Form nur eine Zeile."
+          }
+        }
+      }
+    },
+    "Version %@ · Build %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ · Build %@"
           }
         }
       }

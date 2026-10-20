@@ -71,7 +71,7 @@ struct ReplacementRulesView: View {
                         }
                         .padding(.horizontal, 10)
                         .padding(.vertical, 8)
-                        .background(Color(.controlBackgroundColor).opacity(0.6))
+                        .background(SPEXTTheme.surface.opacity(0.6))
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
