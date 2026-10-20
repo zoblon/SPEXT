@@ -25,6 +25,8 @@ jobs:
             CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" build
       - name: Guard tests
         run: sh SPEXTTests/run-guard-tests.sh
+      - name: Permission recovery safety tests
+        run: sh SPEXTTests/run-permission-tests.sh
       - name: Package build for local signing and release verification
         run: |
           ditto -c -k --sequesterRsrc --keepParent \

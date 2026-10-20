@@ -18,10 +18,16 @@ class AppState: ObservableObject {
 
     // MARK: - Published State
 
-    @Published var isRecording     = false
-    @Published var isTranscribing  = false
+    @Published var isRecording     = false {
+        didSet { if oldValue && !isRecording { resumeHotkeyRecoveryWhenIdle() } }
+    }
+    @Published var isTranscribing  = false {
+        didSet { if oldValue && !isTranscribing { resumeHotkeyRecoveryWhenIdle() } }
+    }
     /// Prevents a race condition when the hotkey fires twice during async engine init.
-    private    var isStarting      = false
+    private    var isStarting      = false {
+        didSet { if oldValue && !isStarting { resumeHotkeyRecoveryWhenIdle() } }
+    }
     @Published var isMicReady      = false
     @Published var signalWarning   = false
     private var recordingWarning: String?
@@ -119,6 +125,11 @@ class AppState: ObservableObject {
     private var levelCancellable:       AnyCancellable?
     private var micReadyCancellable:    AnyCancellable?
     private var signalCancellable:      AnyCancellable?
+    private var permissionActivationCancellable: AnyCancellable?
+    private var permissionRefreshWorkItems: [DispatchWorkItem] = []
+    private var hotkeyRecoveryState = PermissionRecoveryState()
+    private var hotkeyRecoveryWorkItem: DispatchWorkItem?
+    private var permissionReleaseMonitor: HotkeyManager?
     private var deviceListenerBlock:    AudioObjectPropertyListenerBlock?
     private var defaultInputListenerBlock: AudioObjectPropertyListenerBlock?
 
@@ -205,6 +216,10 @@ class AppState: ObservableObject {
         refreshDevices()
         checkPermissions()
         setupHotkeys()
+        permissionActivationCancellable = NotificationCenter.default
+            .publisher(for: NSApplication.didBecomeActiveNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in self?.refreshPermissionsAfterSettings() }
         setupDeviceMonitor()
         levelCancellable = audioRecorder.$audioLevel
             .receive(on: DispatchQueue.main)
@@ -384,7 +399,104 @@ class AppState: ObservableObject {
         updatePermissionStatusMessages()
     }
 
+    /// Re-read native authorization for this process, then repair missing taps only
+    /// while idle. Returning from System Settings must not interrupt a held hotkey.
+    func refreshPermissionsAndHotkeys() {
+        checkPermissions()
+        let tapsInstalled = hotkeyManager1?.isInstalled == true && hotkeyManager2?.isInstalled == true
+        updatePermissionReleaseMonitor(tapsInstalled: tapsInstalled)
+        switch hotkeyRecoveryState.nextAction(
+            granted: hasInputMonitoringPermission,
+            busy: isStarting || isRecording || isTranscribing,
+            modifiersHeld: !CGEventSource.flagsState(.combinedSessionState)
+                .intersection(HotkeySettings.generalModifiers).isEmpty,
+            tapsInstalled: tapsInstalled
+        ) {
+        case .none:
+            if !hasInputMonitoringPermission || (!hotkeyRecoveryState.hasPendingConfiguration && tapsInstalled) {
+                hotkeyRecoveryWorkItem?.cancel()
+                hotkeyRecoveryWorkItem = nil
+            }
+        case .retry:
+            scheduleHotkeyRecovery()
+        case .rebuild:
+            rebuildHotkeys()
+            let installed = hotkeyManager1?.isInstalled == true && hotkeyManager2?.isInstalled == true
+            hotkeyRecoveryState.didRebuild(installed: installed)
+            updatePermissionReleaseMonitor(tapsInstalled: installed)
+            if installed {
+                hotkeyRecoveryWorkItem?.cancel()
+                hotkeyRecoveryWorkItem = nil
+            } else if hotkeyRecoveryState.takeRetry() {
+                scheduleHotkeyRecovery()
+            }
+        }
+    }
+
+    private func scheduleHotkeyRecovery() {
+        guard hotkeyRecoveryWorkItem == nil else { return }
+        let work = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+            self.hotkeyRecoveryWorkItem = nil
+            self.refreshPermissionsAndHotkeys()
+        }
+        hotkeyRecoveryWorkItem = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: work)
+    }
+
+    private func resumeHotkeyRecoveryWhenIdle() {
+        // Lifecycle setters often run in a sequence. Evaluate the final state on
+        // the next main-loop turn instead of replacing a tap halfway through it.
+        DispatchQueue.main.async { [weak self] in
+            guard let self, !self.isStarting, !self.isRecording, !self.isTranscribing else { return }
+            self.hotkeyRecoveryState.resumeRetries()
+            self.refreshPermissionsAndHotkeys()
+        }
+    }
+
+    private func updatePermissionReleaseMonitor(tapsInstalled: Bool) {
+        guard hotkeyRecoveryState.shouldObserveModifierRelease(
+            granted: hasInputMonitoringPermission, tapsInstalled: tapsInstalled
+        ) else {
+            permissionReleaseMonitor?.teardown()
+            permissionReleaseMonitor = nil
+            return
+        }
+        guard permissionReleaseMonitor?.isInstalled != true else { return }
+        // A dedicated listen-only tap with an empty trigger observes the release
+        // of all shortcut modifiers. It never starts a recording. This remains
+        // armed after the bounded timer budget, including during a cold launch.
+        let monitor = HotkeyManager(triggerFlags: [])
+        monitor.onKeyDown = { [weak self] in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.hotkeyRecoveryState.resumeRetries()
+                self.refreshPermissionsAndHotkeys()
+            }
+        }
+        permissionReleaseMonitor = monitor
+    }
+
+    private func refreshPermissionsAfterSettings() {
+        permissionRefreshWorkItems.forEach { $0.cancel() }
+        permissionRefreshWorkItems.removeAll()
+        hotkeyRecoveryState.resumeRetries()
+        refreshPermissionsAndHotkeys()
+        // TCC can publish the change shortly after the app becomes active. These
+        // are read-only rechecks; setupHotkeys separately guards every rebuild.
+        for delay in [0.5, 1.5] {
+            let work = DispatchWorkItem { [weak self] in self?.refreshPermissionsAndHotkeys() }
+            permissionRefreshWorkItems.append(work)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: work)
+        }
+    }
+
     func setupHotkeys() {
+        hotkeyRecoveryState.requestConfiguration()
+        refreshPermissionsAndHotkeys()
+    }
+
+    private func rebuildHotkeys() {
         hotkeyManager1?.teardown()
         hotkeyManager2?.teardown()
 
@@ -415,12 +527,7 @@ class AppState: ObservableObject {
 
     func requestAccessibility() {
         HotkeyManager.requestAccessibilityPermission()
-        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
-            NSWorkspace.shared.open(url)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            self?.checkPermissions()
-        }
+        openPermissionSettings(.accessibility)
     }
 
     func requestPermission(_ permission: SPEXTPermission) {
@@ -448,17 +555,10 @@ class AppState: ObservableObject {
             requestMicrophone()
         }
 
-        if missing.contains(.inputMonitoring),
-           let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent") {
-            NSWorkspace.shared.open(url)
-        } else if missing.contains(.accessibility),
-                  let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
-            NSWorkspace.shared.open(url)
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            self?.checkPermissions()
-            self?.setupHotkeys()
+        if missing.contains(.inputMonitoring) {
+            openPermissionSettings(.inputMonitoring)
+        } else if missing.contains(.accessibility) {
+            openPermissionSettings(.accessibility)
         }
     }
 
@@ -473,18 +573,25 @@ class AppState: ObservableObject {
 
     func requestInputMonitoring() {
         InputMonitoringPermission.request()
-        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent") {
+        openPermissionSettings(.inputMonitoring)
+    }
+
+    func openPermissionSettings(_ permission: SPEXTPermission) {
+        let pane: String
+        switch permission {
+        case .inputMonitoring: pane = "Privacy_ListenEvent"
+        case .accessibility: pane = "Privacy_Accessibility"
+        case .microphone: pane = "Privacy_Microphone"
+        }
+        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?\(pane)") {
             NSWorkspace.shared.open(url)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            self?.checkPermissions()
-            self?.setupHotkeys()
-        }
+        refreshPermissionsAfterSettings()
     }
 
     func requestMicrophone() {
-        AVCaptureDevice.requestAccess(for: .audio) { [weak self] granted in
-            DispatchQueue.main.async { self?.hasMicrophonePermission = granted }
+        AVCaptureDevice.requestAccess(for: .audio) { [weak self] _ in
+            DispatchQueue.main.async { self?.refreshPermissionsAndHotkeys() }
         }
     }
 

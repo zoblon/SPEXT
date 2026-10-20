@@ -1,24 +1,42 @@
 {
-  "approval": "Tobi accepted V10 and requested integration on 2026-10-19.",
-  "generation": "V6 generated lettering alpha; V7 bolt traced, V9 height/shear, V10 width scaling. Derived assets use native SVG placement and deterministic resizing.",
+  "approval": "V10 geometry accepted 2026-10-19; V11 blue-violet palette and quieter application design accepted by Tobi on 2026-10-20.",
+  "generation": "V6 generated lettering alpha; V7 bolt traced, V9 height/shear, V10 width scaling. V11 changes colors only. Derived assets use native SVG placement and deterministic resizing.",
   "palette": [
-    "#8B7CF4",
-    "#6242DE",
-    "#C9FF32"
+    "#696BC8",
+    "#555AB6",
+    "#C9EF67",
+    "#F5F3EE"
+  ],
+  "darkWordmarkPalette": [
+    "#A4A8ED",
+    "#8E94E0",
+    "#C9EF67"
   ],
   "limitations": "Raster letter silhouettes embedded in SVG; not a full-vector typeface.",
   "assets": [
     {
       "path": "assets/branding/spext-app-icon.png",
-      "sha256": "6abe06cffd4fbd255b742cde42abae3bc8095f492d1cef7461fd11192d10c5b6",
+      "sha256": "37f9702b183095588d1f9c313e0073bdb85ad51b94d434c455b757cc34f352fc",
       "size": [
         1024,
         1024
       ]
     },
     {
+      "path": "assets/branding/spext-logo-dark.png",
+      "sha256": "1c8b2bd040b5cbad3fa32acc8f9f2cf79bb20a8830d47642ebdddc0a61a0dcfe",
+      "size": [
+        2058,
+        440
+      ]
+    },
+    {
+      "path": "assets/branding/spext-logo-dark.svg",
+      "sha256": "cf4c26f95ce3566308921d18ab01e764e8ca7a3b109b37af2b8c6d86bdfaf6b9"
+    },
+    {
       "path": "assets/branding/spext-logo.png",
-      "sha256": "a9d603e0bb561038a24b45f6ab46ada50f824fcc18477d848330e2a6dc12472d",
+      "sha256": "b018719028fcd5d0af5a0ad1368864c445683ffff65630be1b3d198eefcaf208",
       "size": [
         2058,
         440
@@ -26,7 +44,7 @@
     },
     {
       "path": "assets/branding/spext-logo.svg",
-      "sha256": "f52cf7ab1991f6e0819d621d51aa35a90e8a753b92f91b1c3107caa94477577d"
+      "sha256": "9f23bb214ee933de356bb22c33cba8f9241ea2711cf495a4adca3c5d37479b6b"
     },
     {
       "path": "assets/branding/spext-menubar.png",
@@ -54,15 +72,39 @@
     },
     {
       "path": "assets/branding/spext-social-preview.png",
-      "sha256": "39662486b1b1ccd123769a39ef7dfd02df3cc55231686c0a52fcc3231e23b6ba",
+      "sha256": "392fb9df02e15241999304836f37a668d69dffacb8383c06bf1af28317e84d71",
       "size": [
         1280,
         640
       ]
     },
     {
+      "path": "assets/branding/spext-wordmark-dark.png",
+      "sha256": "316e28cf60a048ea025b010a48250dbcb4125e602283809464b043e3521242da",
+      "size": [
+        120,
+        26
+      ]
+    },
+    {
+      "path": "assets/branding/spext-wordmark-dark@2x.png",
+      "sha256": "fc10f2f222a2520e53e01ad1c7f4dfa698860cf1530811485781b43e299ca99b",
+      "size": [
+        240,
+        51
+      ]
+    },
+    {
+      "path": "assets/branding/spext-wordmark-dark@3x.png",
+      "sha256": "320286b88884366f4e7b6fee678834cb1248ce7ab53f3b4013228fe22f153fda",
+      "size": [
+        360,
+        77
+      ]
+    },
+    {
       "path": "assets/branding/spext-wordmark.png",
-      "sha256": "ef3dde2b60342318994638e2d5240622f50af2d795b4885c57964a4ebe9f9432",
+      "sha256": "49ce32d7824a5e509646c581f31aa01282307e145314a093087f112117a40b7a",
       "size": [
         120,
         26
@@ -70,7 +112,7 @@
     },
     {
       "path": "assets/branding/spext-wordmark@2x.png",
-      "sha256": "71384ed8c39869510bd377cdbb55ba18ce673e52f462ec1a2563311445c6910e",
+      "sha256": "bdeb536628e151ec5ac64fd5db9bdd9a2079351008345b38adc16e4de0e7e282",
       "size": [
         240,
         51
@@ -78,7 +120,7 @@
     },
     {
       "path": "assets/branding/spext-wordmark@3x.png",
-      "sha256": "f0c331e9f1be3e669c3cdbea0c4ea41be933768e5277e3f44632a4414181aa5f",
+      "sha256": "94f624cf425d59c0ef516074bd409c9c6847d0d0bc78796d1fea01d7e1b6553c",
       "size": [
         360,
         77
@@ -86,7 +128,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_128x128.png",
-      "sha256": "0f2caf2143e4e6a049e3e3ae0440eb048e64aa18e6953fa32510cef87d7822bf",
+      "sha256": "a4a7f88f4152927ff1642a128641a59dd8f0f1e5e252825636f0025b1b746412",
       "size": [
         128,
         128
@@ -94,7 +136,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_128x128@2x.png",
-      "sha256": "dd7171daabdd784063a7413edcdfe72299ed0bcb8378854734e9d32788950fff",
+      "sha256": "acda1ffbda18aad43d38bf5816dc572e8cc836e2afa1582efdef7f6c82a1ae57",
       "size": [
         256,
         256
@@ -102,7 +144,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_16x16.png",
-      "sha256": "aa3c2de5865ebfdc35b56fdfdc0cd43cf6d21107ac8b3dacc83d030bd6abc856",
+      "sha256": "367da40d43c948885f45bbd3ba16806422ad820de34471cc68ced8ea3e31dce0",
       "size": [
         16,
         16
@@ -110,7 +152,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_16x16@2x.png",
-      "sha256": "c886228cca3db29c62f3b1e0e310935e44b05cf29ffc8576c54e42e104b9010d",
+      "sha256": "9c22c0a63606512816f5e8bbb8832bb63662e487ff89cc3e537bca71f520dfc4",
       "size": [
         32,
         32
@@ -118,7 +160,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_256x256.png",
-      "sha256": "dd7171daabdd784063a7413edcdfe72299ed0bcb8378854734e9d32788950fff",
+      "sha256": "acda1ffbda18aad43d38bf5816dc572e8cc836e2afa1582efdef7f6c82a1ae57",
       "size": [
         256,
         256
@@ -126,7 +168,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png",
-      "sha256": "3acdd26a0f6fb2b8586cb005e2dfb4f8bcb4c8d36ec6e612ca4e70920318641a",
+      "sha256": "693057a5fbd8c52ddd517d98f20660707a2c2bad7461134d9f04245234f043a2",
       "size": [
         512,
         512
@@ -134,7 +176,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_32x32.png",
-      "sha256": "c886228cca3db29c62f3b1e0e310935e44b05cf29ffc8576c54e42e104b9010d",
+      "sha256": "9c22c0a63606512816f5e8bbb8832bb63662e487ff89cc3e537bca71f520dfc4",
       "size": [
         32,
         32
@@ -142,7 +184,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_32x32@2x.png",
-      "sha256": "dfd5bae8ad0e2b177a88d9317d1b6fe05cad1fee1419412a9da9e293fe93caaa",
+      "sha256": "afc872086efe344d7d9d8f329100ac70e664ca9e81dc4952fbc3eed63b108d9c",
       "size": [
         64,
         64
@@ -150,7 +192,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_512x512.png",
-      "sha256": "3acdd26a0f6fb2b8586cb005e2dfb4f8bcb4c8d36ec6e612ca4e70920318641a",
+      "sha256": "693057a5fbd8c52ddd517d98f20660707a2c2bad7461134d9f04245234f043a2",
       "size": [
         512,
         512
@@ -158,7 +200,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/AppIcon.appiconset/icon_512x512@2x.png",
-      "sha256": "6abe06cffd4fbd255b742cde42abae3bc8095f492d1cef7461fd11192d10c5b6",
+      "sha256": "37f9702b183095588d1f9c313e0073bdb85ad51b94d434c455b757cc34f352fc",
       "size": [
         1024,
         1024
@@ -189,8 +231,32 @@
       ]
     },
     {
+      "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark-dark.png",
+      "sha256": "316e28cf60a048ea025b010a48250dbcb4125e602283809464b043e3521242da",
+      "size": [
+        120,
+        26
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark-dark@2x.png",
+      "sha256": "fc10f2f222a2520e53e01ad1c7f4dfa698860cf1530811485781b43e299ca99b",
+      "size": [
+        240,
+        51
+      ]
+    },
+    {
+      "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark-dark@3x.png",
+      "sha256": "320286b88884366f4e7b6fee678834cb1248ce7ab53f3b4013228fe22f153fda",
+      "size": [
+        360,
+        77
+      ]
+    },
+    {
       "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark.png",
-      "sha256": "ef3dde2b60342318994638e2d5240622f50af2d795b4885c57964a4ebe9f9432",
+      "sha256": "49ce32d7824a5e509646c581f31aa01282307e145314a093087f112117a40b7a",
       "size": [
         120,
         26
@@ -198,7 +264,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark@2x.png",
-      "sha256": "71384ed8c39869510bd377cdbb55ba18ce673e52f462ec1a2563311445c6910e",
+      "sha256": "bdeb536628e151ec5ac64fd5db9bdd9a2079351008345b38adc16e4de0e7e282",
       "size": [
         240,
         51
@@ -206,7 +272,7 @@
     },
     {
       "path": "SPEXT/Assets.xcassets/SPEXTWordmark.imageset/spext-wordmark@3x.png",
-      "sha256": "f0c331e9f1be3e669c3cdbea0c4ea41be933768e5277e3f44632a4414181aa5f",
+      "sha256": "94f624cf425d59c0ef516074bd409c9c6847d0d0bc78796d1fea01d7e1b6553c",
       "size": [
         360,
         77

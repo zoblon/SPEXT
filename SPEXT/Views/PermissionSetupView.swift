@@ -5,10 +5,11 @@ struct PermissionSetupView: View {
     let onClose: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
+        ScrollView {
+        VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 6) {
                 Text("Set up SPEXT")
-                    .font(.system(size: 22, weight: .semibold))
+                    .font(.system(size: 30, weight: .regular, design: .serif))
 
                 Text("SPEXT needs these permissions so shortcuts, recording and automatic pasting work.")
                     .font(.system(size: 13))
@@ -16,7 +17,7 @@ struct PermissionSetupView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
 
-            VStack(spacing: 10) {
+            VStack(spacing: 0) {
                 ForEach(SPEXTPermission.allCases, id: \.self) { permission in
                     PermissionSetupRow(
                         permission: permission,
@@ -24,8 +25,15 @@ struct PermissionSetupView: View {
                     ) {
                         appState.requestPermission(permission)
                     }
+                    if permission != SPEXTPermission.allCases.last {
+                        Divider().padding(.horizontal, 18)
+                    }
                 }
             }
+            .background(SPEXTTheme.surface, in: RoundedRectangle(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(SPEXTTheme.rule, lineWidth: 0.5))
+
+            PermissionRecoveryView()
 
             Text("macOS requires your confirmation. SPEXT can request the entries and guide you to the right place, but cannot enable them without your approval.")
                 .font(.system(size: 11))
@@ -39,8 +47,7 @@ struct PermissionSetupView: View {
                 Spacer()
 
                 Button("Check again") {
-                    appState.checkPermissions()
-                    appState.setupHotkeys()
+                    appState.refreshPermissionsAndHotkeys()
                     if !appState.permissionChecklist.needsSetup {
                         onClose()
                     }
@@ -54,9 +61,12 @@ struct PermissionSetupView: View {
                 .disabled(!appState.permissionChecklist.needsSetup)
             }
         }
-        .padding(24)
-        .frame(width: 520)
-        .onAppear { appState.checkPermissions() }
+        .padding(30)
+        }
+        .frame(width: 580, height: 540)
+        .background(SPEXTTheme.canvas)
+        .tint(SPEXTTheme.accent)
+        .onAppear { appState.refreshPermissionsAndHotkeys() }
         .onChange(of: appState.permissionChecklist) { _, checklist in
             if !checklist.needsSetup {
                 onClose()
@@ -72,13 +82,10 @@ private struct PermissionSetupRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            RoundedRectangle(cornerRadius: 7)
-                .fill(isGranted ? Color.green.opacity(0.12) : Color(.controlBackgroundColor))
-                .frame(width: 34, height: 34)
-                .overlay(
-                    Image(systemName: permission.systemImage)
-                        .foregroundStyle(isGranted ? .green : .secondary)
-                )
+            Image(systemName: permission.systemImage)
+                .font(.system(size: 18, weight: .regular))
+                .foregroundStyle(.secondary)
+                .frame(width: 30, height: 34)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(permission.title)
@@ -101,15 +108,6 @@ private struct PermissionSetupRow: View {
                     .controlSize(.small)
             }
         }
-        .padding(12)
-        .background(isGranted ? Color.green.opacity(0.05) : Color(.controlBackgroundColor).opacity(0.6))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(
-                    isGranted ? Color.green.opacity(0.25) : Color(.separatorColor).opacity(0.5),
-                    lineWidth: 0.5
-                )
-        )
+        .padding(18)
     }
 }

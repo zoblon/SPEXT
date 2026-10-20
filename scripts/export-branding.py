@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export app assets and social preview from the approved V10 masters (Pillow)."""
+"""Export app assets and social preview from the current production masters (Pillow)."""
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 import json, hashlib, os
@@ -46,22 +46,34 @@ for scale in (1,2,3):
     names.append(name)
 imageset('SPEXTWordmark',names)
 
+# Small wordmark lettering uses a lighter member of the same blue-violet palette
+# in dark appearances. Geometry, alpha masks and the lime bolt remain identical.
+dark=Image.open(BRAND/'spext-logo-dark.png').convert('RGBA')
+folder=CATALOG/'SPEXTWordmark.imageset'
+contents=json.loads((folder/'Contents.json').read_text())
+for scale in (1,2,3):
+    name='spext-wordmark-dark'+('' if scale==1 else f'@{scale}x')+'.png'
+    dark.resize((120*scale,round(120*scale*dark.height/dark.width)),Image.Resampling.LANCZOS).save(BRAND/name)
+    (folder/name).write_bytes((BRAND/name).read_bytes())
+    contents['images'].append({'filename':name,'idiom':'universal','scale':f'{scale}x','appearances':[{'appearance':'luminosity','value':'dark'}]})
+(folder/'Contents.json').write_text(json.dumps(contents,indent=2)+'\n')
+
 # Supporting text is separate from the unchanged approved wordmark.
 regular=os.environ.get('SPEXT_FONT_REGULAR','/System/Library/Fonts/Supplemental/Arial.ttf')
 bold=os.environ.get('SPEXT_FONT_BOLD','/System/Library/Fonts/Supplemental/Arial Bold.ttf')
 scale=2
-social=Image.new('RGB',(1280*scale,640*scale),'#F5F3FF');draw=ImageDraw.Draw(social)
+social=Image.new('RGB',(1280*scale,640*scale),'#F5F3EE');draw=ImageDraw.Draw(social)
 def text(x,y,copy,size,color,font=regular):
     face=ImageFont.truetype(font,size*scale)
     bounds=draw.textbbox((x*scale,y*scale),copy,font=face)
     assert bounds[2]<1216*scale and bounds[3]<608*scale,(copy,bounds)
     draw.text((x*scale,y*scale),copy,font=face,fill=color)
-text(88,64,'macOS dictation app',23,'#6242DE',bold)
+text(88,64,'macOS dictation app',23,'#6B6B73')
 brand=logo.copy();brand.thumbnail((1104*scale,250*scale),Image.Resampling.LANCZOS)
 social.paste(brand,(88*scale,146*scale),brand)
-text(94,418,'Speech to text. Straight into your app.',37,'#34226D',bold)
-text(96,484,'Hold a hotkey. Speak. Release.',27,'#6E6287')
-text(96,570,'Independent project · github.com/zoblon/SPEXT',18,'#6E6287')
+text(94,418,'Speech to text. Straight into your app.',37,'#292B35',os.environ.get('SPEXT_FONT_SERIF','/System/Library/Fonts/Supplemental/Georgia.ttf'))
+text(96,484,'Hold a hotkey. Speak. Release.',27,'#6B6B73')
+text(96,570,'Independent project · github.com/zoblon/SPEXT',18,'#6B6B73')
 social.resize((1280,640),Image.Resampling.LANCZOS).save(BRAND/'spext-social-preview.png')
 records=[]
 for folder in (BRAND,CATALOG/'AppIcon.appiconset',CATALOG/'MenuBarIcon.imageset',CATALOG/'SPEXTWordmark.imageset'):
@@ -70,6 +82,6 @@ for folder in (BRAND,CATALOG/'AppIcon.appiconset',CATALOG/'MenuBarIcon.imageset'
             record={'path':path.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
             if path.suffix=='.png':record['size']=list(Image.open(path).size)
             records.append(record)
-manifest={'approval':'Tobi accepted V10 and requested integration on 2026-10-19.','generation':'V6 generated lettering alpha; V7 bolt traced, V9 height/shear, V10 width scaling. Derived assets use native SVG placement and deterministic resizing.','palette':['#8B7CF4','#6242DE','#C9FF32'],'limitations':'Raster letter silhouettes embedded in SVG; not a full-vector typeface.','assets':records}
+manifest={'approval':'V10 geometry accepted 2026-10-19; V11 blue-violet palette and quieter application design accepted by Tobi on 2026-10-20.','generation':'V6 generated lettering alpha; V7 bolt traced, V9 height/shear, V10 width scaling. V11 changes colors only. Derived assets use native SVG placement and deterministic resizing.','palette':['#696BC8','#555AB6','#C9EF67','#F5F3EE'],'darkWordmarkPalette':['#A4A8ED','#8E94E0','#C9EF67'],'limitations':'Raster letter silhouettes embedded in SVG; not a full-vector typeface.','assets':records}
 (BRAND/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print(f'Exported and hashed {len(records)} production assets.')

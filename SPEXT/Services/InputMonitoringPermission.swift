@@ -1,12 +1,14 @@
-import IOKit.hidsystem
+import CoreGraphics
 
 enum InputMonitoringPermission {
     static var isGranted: Bool {
-        IOHIDCheckAccess(kIOHIDRequestTypeListenEvent) == kIOHIDAccessTypeGranted
+        // Match the CGEvent listen-only tap used by HotkeyManager. A System Settings
+        // switch (or a grant to a different app copy) is not a grant to this process.
+        CGPreflightListenEventAccess()
     }
 
     @discardableResult
     static func request() -> Bool {
-        IOHIDRequestAccess(kIOHIDRequestTypeListenEvent)
+        CGRequestListenEventAccess()
     }
 }

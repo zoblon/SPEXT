@@ -3,7 +3,7 @@
 macOS menu bar app (Swift/SwiftUI, macOS 14+) for voice input via hotkey.
 Recording → OpenAI GPT Transcribe → optional GPT (rewriting) → insertion via paste.
 
-Current app version: **1.0.25** (build **25**).
+Current app version: **1.0.26** (build **26**).
 
 > **Doc sync rule:** `CLAUDE.md` and `AGENTS.md` must **always have the same content**.
 > Every change to one of the two files must also be made in the other (identical wording,
@@ -28,7 +28,7 @@ The source code is hosted on GitHub (`zoblon/SPEXT`, branch `main`). To publish 
 
 ## Branding
 
-Approved V10 branding (2026-10-19) lives under `assets/branding`, including sources and hashes. `scripts/export-branding.py` (Pillow) exports all app-icon sizes, `MenuBarIcon` template images, `SPEXTWordmark` images and the English social preview. Run `python3 scripts/verify-branding.py` after changes. The custom menu-bar template keeps recording/transcribing colors and an opacity pulse. See `assets/branding/README.md` for source and typography limitations.
+Approved V10 geometry (2026-10-19) with the blue-violet V11 color refinement (2026-10-20) lives under `assets/branding`, including sources and hashes. `scripts/export-branding.py` (Pillow) exports all app-icon sizes, `MenuBarIcon` template images, `SPEXTWordmark` images and the English social preview. Run `python3 scripts/verify-branding.py` after changes. The custom menu-bar template keeps recording/transcribing colors and an opacity pulse. See `assets/branding/README.md` for source and typography limitations.
 
 ## Architecture
 
@@ -112,6 +112,12 @@ Hotkey KeyUp
 - In the warm path: `isMicReady = true` is set immediately in `startRecording`.
 - `RealtimeState.micReadySignaled` prevents the tap callback from setting the state more than once. The silence/hallucination guard is unchanged and still decides separately whether a recording may be uploaded.
 - `HUDWindowController` creates the NSPanel once and reuses it via `orderFront`/`orderOut`.
+
+### Permissions and interface
+- Native permission checks describe the currently running bundle. Listen access uses CoreGraphics preflight/request APIs; accessibility uses AX trust.
+- On app activation and menu/setup display, permissions refresh and missing hotkey taps recover only while idle with all modifier keys released. Existing installed taps remain intact.
+- Setup and Access settings identify the running version/build/path and provide a manual stale-entry recovery guide. No privacy grants are changed or bypassed. Ad-hoc signed updates can require granting the new build again.
+- Shared adaptive warm neutral surfaces and a restrained blue-violet accent connect setup, settings and the menu popover.
 
 ### Hotkey system
 - `HotkeyManager` uses `CGEventTap` with `.flagsChanged` events.
